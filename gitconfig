@@ -1,0 +1,30 @@
+[alias]
+  s = status -sb
+  co = checkout
+[color]
+  ui = auto
+[core]
+  editor = sublime -n -w
+  excludesfile = ~/.gitignore_global
+[push]
+  default = simple
+[rerere]
+  enabled = 1
+[user]
+  name = Michael Bachand
+  email = michael.bachand@airbnb.com
+[credential]
+  helper = osxkeychain
+[merge]
+  tool = Kaleidoscope
+[diff]
+  tool = Kaleidoscope
+[mergetool "Kaleidoscope"]
+  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+  trustexitcode = true
+[difftool "Kaleidoscope"]
+  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool]
+  prompt = false
+[mergetool]
+  prompt = false
