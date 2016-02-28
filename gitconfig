@@ -1,6 +1,7 @@
 [alias]
   s = status -sb
   co = checkout
+  cleanup = !git-cleanup
 [color]
   ui = auto
 [core]

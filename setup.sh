@@ -22,20 +22,9 @@ function create_link() {
 }
 
 if type brew >/dev/null 2>&1; then
-  if ! brew doctor >/dev/null 2>&1; then
-    echo 'Please run `brew doctor` and correct issues before proceeding' 1>&2
-    exit 1
-  fi
-
   verify_and_install_package 'bash-completion'
   if [[ $? != 0 ]]; then
     echo 'Error verifying or installing bash-completion package' 1>&2
-    exit 1
-  fi
-
-  verify_and_install_package 'carthage'
-  if [[ $? != 0 ]]; then
-    echo 'Error verifying or installing carthage package' 1>&2
     exit 1
   fi
 else
@@ -44,3 +33,6 @@ else
 fi
 
 create_link "$HOME/.gitconfig" "$PWD/gitconfig"
+
+chmod 755 "$PWD/git-cleanup"
+create_link "/usr/local/bin/git-cleanup" "$PWD/git-cleanup"
