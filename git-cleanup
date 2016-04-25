@@ -1,3 +1,15 @@
 #!/usr/bin/env bash
 
-git fetch -p
+# Prompt user to delete local branches with no upstream
+
+for branch in $(git for-each-ref --format="%(refname:short)" refs/heads)
+do
+  upstream=$(git rev-parse --abbrev-ref $branch@{upstream} 2>/dev/null)
+  if [[ $? != 0 ]]; then
+    read -r -p "Do you want to $branch? [y/N] " response
+    if [[ $response == "y" || $response == "Y" ]]
+    then
+      git branch -D $branch
+    fi
+  fi
+done
