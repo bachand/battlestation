@@ -4,6 +4,7 @@
   cleanup = !git-cleanup
   cp = cherry-pick
   last = log -1 HEAD
+  ci = commit
 [color]
   ui = auto
 [core]
