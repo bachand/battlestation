@@ -2,14 +2,23 @@
 
 # Prompt user to delete local branches with no upstream
 
+# Switch branches so that the -d option of git branch will use master as the
+# "upstream" when checking if the branch that is about to be deleted is merged.
+git checkout --quiet master >/dev/null
+if [[ $? != 0 ]]; then
+  exit 1
+fi
+
 for branch in $(git for-each-ref --format="%(refname:short)" refs/heads)
 do
   upstream=$(git rev-parse --abbrev-ref $branch@{upstream} 2>/dev/null)
   if [[ $? != 0 ]]; then
-    read -r -p "Are you sure you want to delete $branch? [y/N] " response
-    if [[ $response == "y" || $response == "Y" ]]
+    echo "$branch has no upstream. Here are the last three commits:"
+    git log -3 --pretty=format:'%an, %ar : %s' "$branch"
+    read -r -p 'Do you want to delete this branch? [Y/n] ' response
+    if [[ $response == 'Y' ]]
     then
-      git branch -D $branch
+      git branch -d $branch
     fi
   fi
 done

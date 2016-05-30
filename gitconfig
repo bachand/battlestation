@@ -2,6 +2,8 @@
   s = status -sb
   co = checkout
   cleanup = !git-cleanup
+  cp = cherry-pick
+  last = log -1 HEAD
 [color]
   ui = auto
 [core]
