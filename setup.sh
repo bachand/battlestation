@@ -22,9 +22,9 @@ function create_link() {
 }
 
 if type brew >/dev/null 2>&1; then
-  verify_and_install_package 'bash-completion'
+  verify_and_install_package 'git'
   if [[ $? != 0 ]]; then
-    echo 'Error verifying or installing bash-completion package' 1>&2
+    echo 'Error verifying or installing git package' 1>&2
     exit 1
   fi
 else
