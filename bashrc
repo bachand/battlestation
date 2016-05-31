@@ -20,6 +20,8 @@ export HISTCONTROL=ignoreboth,ignoredups
 
 alias ls='ls -alG'
 alias sn='sublime'
+REPOS="$HOME/repos"
+alias cdr="cd $REPOS"
 
 CONFIG_WORK="$HOME/Box/Personal/dotfiles/airbnb"
 CONFIG_HOME="$HOME/Dropbox/mbp-retina/dotfiles/home"
