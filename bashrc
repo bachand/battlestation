@@ -21,7 +21,12 @@ export HISTCONTROL=ignoreboth,ignoredups
 alias ls='ls -alG'
 alias sn='sublime'
 
-AIRBNB_CONFIG="$HOME/Box/Personal/dotfiles/airbnb"
-if [[ -f "$AIRBNB_CONFIG" ]]; then
-  source "$AIRBNB_CONFIG"
+CONFIG_WORK="$HOME/Box/Personal/dotfiles/airbnb"
+CONFIG_HOME="$HOME/Dropbox/mbp-retina/dotfiles/home"
+if [[ -f "$CONFIG_WORK" ]]; then
+  source "$CONFIG_WORK"
+elif [[ -f "$CONFIG_HOME" ]]; then
+  source "$CONFIG_HOME"
+else
+  echo "$(tput setaf 1)Can't find a home or work config file$(tput sgr 0)"
 fi
