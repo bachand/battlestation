@@ -38,3 +38,10 @@ create_link "$HOME/.gitconfig" "$PWD/gitconfig"
 
 chmod 755 "$PWD/git-cleanup"
 create_link "/usr/local/bin/git-cleanup" "$PWD/git-cleanup"
+
+SUBLIME_PATH='/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
+if [[ -f "$SUBLIME_PATH" ]]; then
+  create_link '/usr/local/bin/sublime' "$SUBLIME_PATH"
+else
+  echo "$(tput setaf 1)Please install Sublime Text and then re-run$(tput sgr 0)"
+fi
