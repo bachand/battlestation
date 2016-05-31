@@ -24,6 +24,4 @@ alias sn='sublime'
 AIRBNB_CONFIG="$HOME/Box/Personal/dotfiles/airbnb"
 if [[ -f "$AIRBNB_CONFIG" ]]; then
   source "$AIRBNB_CONFIG"
-else
-  echo "$(tput setaf 1)Unable to find Airbnb config file$(tput sgr 0)"
 fi
