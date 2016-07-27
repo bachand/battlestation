@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# without this SSH can't connect to the agent, though I wonder if there's a better way...
+eval "$(ssh-agent -s)" >/dev/null
+
 for f in /usr/local/etc/bash_completion.d/*; do
   source $f
 done
