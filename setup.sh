@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+pushd $(dirname $0) > /dev/null
+SCRIPT_DIR=$(pwd)
+popd > /dev/null
+
 verify_and_install_package () {
   if [[ $# == 1 ]]; then
     if ! brew list "$1" >/dev/null 2>&1; then
@@ -16,7 +20,7 @@ function create_link() {
     ln -s "$2" "$1"
   else
     if [[ ! -h $1 ]]; then
-      echo "$1 exists but is not a link; consider removing existing file and re-running this script"
+      echo "$(tput setaf 1)$1 exists but is not a link; consider removing existing file and re-running this script$(tput setaf 0)"
     fi
   fi
 }
@@ -44,4 +48,21 @@ if [[ -f "$SUBLIME_PATH" ]]; then
   create_link '/usr/local/bin/sublime' "$SUBLIME_PATH"
 else
   echo "$(tput setaf 1)Please install Sublime Text and then re-run$(tput sgr 0)"
+  exit 1
+fi
+
+SUBLIME_SETTINGS_SOURCE_PATH="$SCRIPT_DIR/sublime"
+SUBLIME_SETTINGS_TARGET_PATH="$HOME/Library/Application Support/Sublime Text 3/Packages/User"
+if [[ -d "$SUBLIME_SETTINGS_TARGET_PATH" ]]; then
+  find "$SUBLIME_SETTINGS_SOURCE_PATH" -type f -name *.sublime-settings | while read line; do
+    SETTINGS_FILENAME=$(basename $line)
+
+    SOURCE_PATH="$SUBLIME_SETTINGS_SOURCE_PATH/$SETTINGS_FILENAME"
+    TARGET_PATH="$SUBLIME_SETTINGS_TARGET_PATH/$SETTINGS_FILENAME"
+
+    create_link "$TARGET_PATH" "$SOURCE_PATH"
+  done
+else
+  echo "$(tput setaf 1)$SUBLIME_SETTINGS_TARGET_PATH doesn't exist; can't install Sublime settings$(tput sgr 0)"
+  exit 1
 fi
