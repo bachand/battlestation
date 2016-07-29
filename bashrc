@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# without this SSH can't connect to the agent, though I wonder if there's a better way...
-eval "$(ssh-agent -s)" >/dev/null
-
 for f in /usr/local/etc/bash_completion.d/*; do
   source $f
 done
@@ -35,3 +32,19 @@ elif [[ -f "$CONFIG_HOME" ]]; then
 else
   echo "$(tput setaf 1)Can't find a home or work config file$(tput sgr 0)"
 fi
+
+start_ssh_agent() {
+  ssh-add -l &>/dev/null
+  if [[ $? == 2 ]]; then
+    test -r ~/.ssh-agent && eval "$(<~/.ssh-agent)" >/dev/null
+
+    ssh-add -l &>/dev/null
+    if [[ $? == 2 ]]; then
+      (umask 066; ssh-agent > ~/.ssh-agent)
+      eval "$(<~/.ssh-agent)" >/dev/null
+      ssh-add
+    fi
+  fi
+}
+
+start_ssh_agent
