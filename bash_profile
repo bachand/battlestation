@@ -3,9 +3,6 @@
 export PATH="/usr/local/sbin:$PATH" # Homebrew
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-# for GoldKey
-export SSH_AUTH_SOCK=$TMPDIR/ssh-agent-$USER.sock
-
 # only source .bashrc if we are interactive
 case "$-" in
 *i*)

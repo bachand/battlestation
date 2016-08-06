@@ -32,19 +32,3 @@ elif [[ -f "$CONFIG_HOME" ]]; then
 else
   echo "$(tput setaf 1)Can't find a home or work config file$(tput sgr 0)"
 fi
-
-start_ssh_agent() {
-  ssh-add -l &>/dev/null
-  if [[ $? == 2 ]]; then
-    test -r ~/.ssh-agent && eval "$(<~/.ssh-agent)" >/dev/null
-
-    ssh-add -l &>/dev/null
-    if [[ $? == 2 ]]; then
-      (umask 066; ssh-agent > ~/.ssh-agent)
-      eval "$(<~/.ssh-agent)" >/dev/null
-      ssh-add
-    fi
-  fi
-}
-
-start_ssh_agent
