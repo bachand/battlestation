@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-for f in /usr/local/etc/bash_completion.d/*; do
-  source $f
-done
+source '/usr/local/etc/bash_completion.d/git-completion.bash'
+source '/usr/local/etc/bash_completion.d/git-prompt.sh'
 
 export GREP_OPTIONS='--color=auto'
 export VISUAL=sublime
