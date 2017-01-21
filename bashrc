@@ -22,6 +22,8 @@ alias sn='sublime'
 REPOS="$HOME/repos"
 alias cdr="cd $REPOS"
 
+alias rmdd="rm -rf $HOME/Library/Developer/Xcode/DerivedData"
+
 CONFIG_WORK="$HOME/Box/Personal/dotfiles/airbnb"
 CONFIG_HOME="$HOME/Dropbox/mbp-retina/dotfiles/home"
 if [[ -f "$CONFIG_WORK" ]]; then
