@@ -10,10 +10,11 @@
 [core]
   editor = sublime -n -w
   excludesfile = ~/.gitignore_global
+  precomposeunicode = true
 [push]
-  default = simple
+  default = current
 [rerere]
-  enabled = 1
+  enabled = true
 [user]
   name = Michael Bachand
 [credential]
