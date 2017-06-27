@@ -2,6 +2,7 @@
 
 export PATH="/usr/local/sbin:$PATH" # Homebrew
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH=/Applications/CMake.app/Contents/bin:$PATH # for compiling swift repo
 
 # only source .bashrc if we are interactive
 case "$-" in
