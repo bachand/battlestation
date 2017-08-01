@@ -1,0 +1,1 @@
+- Make Sublime text the default way to open .txt, .md, etc. files
