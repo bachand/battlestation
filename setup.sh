@@ -39,6 +39,7 @@ fi
 create_link "$HOME/.bashrc" "$PWD/bashrc"
 create_link "$HOME/.bash_profile" "$PWD/bash_profile"
 create_link "$HOME/.gitconfig" "$PWD/gitconfig"
+create_link "$HOME/.npmrc" "$PWD/npmrc"
 
 chmod 755 "$PWD/git-cleanup"
 create_link "/usr/local/bin/git-cleanup" "$PWD/git-cleanup"
