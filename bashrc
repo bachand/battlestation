@@ -7,6 +7,9 @@ export GREP_OPTIONS='--color=auto'
 export VISUAL=sublime
 export EDITOR="$VISUAL"
 
+# Add Visual Studio Code (code)
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_SHOWUPSTREAM='auto'
