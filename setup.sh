@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 pushd $(dirname $0) > /dev/null
-SCRIPT_DIR=$(pwd)
+readonly SCRIPT_DIR=$(pwd)
 popd > /dev/null
 
 verify_and_install_package () {
@@ -15,6 +15,7 @@ verify_and_install_package () {
 }
 
 function create_link() {
+  # TODO: check that the directory exists
   if [[ ! -f $1 ]] && [[ ! -d $1 ]]; then
     echo "$1 does not exist, creating link to $2"
     ln -s "$2" "$1"
@@ -36,10 +37,11 @@ else
   exit 1
 fi
 
-create_link "$HOME/.bashrc" "$PWD/bashrc"
-create_link "$HOME/.bash_profile" "$PWD/bash_profile"
-create_link "$HOME/.gitconfig" "$PWD/gitconfig"
-create_link "$HOME/.npmrc" "$PWD/npmrc"
+create_link "$HOME/.bashrc" "$SCRIPT_DIR/bashrc"
+create_link "$HOME/.bash_profile" "$SCRIPT_DIR/bash_profile"
+create_link "$HOME/.gitconfig" "$SCRIPT_DIR/gitconfig"
+create_link "$HOME/.npmrc" "$SCRIPT_DIR/npmrc"
+create_link "$HOME/Library/Application Support/Code/User/settings.json" "$SCRIPT_DIR/vscode_settings.json"
 
 chmod 755 "$PWD/git-cleanup"
 create_link "/usr/local/bin/git-cleanup" "$PWD/git-cleanup"
