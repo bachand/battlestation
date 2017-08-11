@@ -15,8 +15,11 @@ verify_and_install_package () {
 }
 
 function create_link() {
-  # TODO: check that the directory exists
-  if [[ ! -f $1 ]] && [[ ! -d $1 ]]; then
+  local source_dir=$(dirname "$1")
+
+  if [[ ! -d "$source_dir" ]]; then
+    echo "$(tput setaf 1)Directory '$source_dir' does not exist; not creating link to '$2'$(tput setaf 0)"
+  elif [[ ! -f $1 ]] && [[ ! -d $1 ]]; then
     echo "$1 does not exist, creating link to $2"
     ln -s "$2" "$1"
   else
