@@ -1,25 +1,25 @@
 #!/usr/bin/env bash
 
-source '/usr/local/etc/bash_completion.d/git-completion.bash'
-source '/usr/local/etc/bash_completion.d/git-prompt.sh'
+unset HISTFILESIZE
 
 export GREP_OPTIONS='--color=auto'
 export VISUAL=sublime
 export EDITOR="$VISUAL"
-
-# Add Visual Studio Code (code)
-export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWUNTRACKEDFILES=1
-GIT_PS1_SHOWUPSTREAM='auto'
-GIT_PS1_SHOWCOLORHINTS=1
-PROMPT_COMMAND='__git_ps1 "boss:\w" "\\\$ "'
-
-unset HISTFILESIZE
 export HISTSIZE=10000
 # ignore commands that lead with a space, ignore dups
 export HISTCONTROL=ignoreboth,ignoredups
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWUNTRACKEDFILES=1
+export GIT_PS1_SHOWUPSTREAM='auto'
+export GIT_PS1_SHOWCOLORHINTS=1
+export PROMPT_COMMAND='__git_ps1 "boss:\w" "\\\$ "'
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+readonly CONFIG_WORK="$HOME/Box/Personal/dotfiles/airbnb"
+readonly CONFIG_HOME="$HOME/Dropbox/mbp-retina/dotfiles/home"
+
+source '/usr/local/etc/bash_completion.d/git-completion.bash'
+source '/usr/local/etc/bash_completion.d/git-prompt.sh'
 
 alias ls='ls -alG'
 alias sn='sublime'
@@ -28,8 +28,6 @@ alias cdr="cd $REPOS"
 
 alias rmdd="rm -rf $HOME/Library/Developer/Xcode/DerivedData"
 
-CONFIG_WORK="$HOME/Box/Personal/dotfiles/airbnb"
-CONFIG_HOME="$HOME/Dropbox/mbp-retina/dotfiles/home"
 if [[ -f "$CONFIG_WORK" ]]; then
   source "$CONFIG_WORK"
 elif [[ -f "$CONFIG_HOME" ]]; then
