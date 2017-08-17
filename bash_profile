@@ -7,7 +7,7 @@ export PATH=/Applications/CMake.app/Contents/bin:$PATH # for compiling swift rep
 # only source .bashrc if we are interactive
 case "$-" in
 *i*)
-  if [[ -r ~/.bashrc ]]; then source ~/.bashrc; fi
+  [[ -r ~/.bashrc ]] && source ~/.bashrc
   ;;
 esac
 

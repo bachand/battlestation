@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This file is only sourced in interactive shells.
+
 unset HISTFILESIZE
 
 export GREP_OPTIONS='--color=auto'
@@ -18,6 +20,8 @@ export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
 
 readonly CONFIG_WORK="$HOME/Box/Personal/dotfiles/airbnb"
 readonly CONFIG_HOME="$HOME/Dropbox/mbp-retina/dotfiles/home"
+
+[[ -r ~/.fzf.bash ]] && source ~/.fzf.bash
 
 source '/usr/local/etc/bash_completion.d/git-completion.bash'
 source '/usr/local/etc/bash_completion.d/git-prompt.sh'

@@ -115,10 +115,28 @@ setup_sublime() {
   fi
 }
 
+#######################################
+# Runs the fzf install script in order to install key bindings and shell completion. Exits with an
+# error code of 1 if that script fails.
+#
+# Arguments:
+# Returns:
+#######################################
+setup_fzf() {
+  /usr/local/opt/fzf/install --key-bindings --completion --no-update-rc >/dev/null 2>&1
+  if [[ "$?" -ne 0 ]]; then
+    echo_error 'Failed to install fzf'
+    exit 1
+  fi
+}
+
+
 verify_homebrew
 
 install_package 'git'
+
 install_package 'fzf'
+setup_fzf
 
 create_link "$HOME/.bashrc" "$SCRIPT_DIR/bashrc"
 create_link "$HOME/.bash_profile" "$SCRIPT_DIR/bash_profile"
