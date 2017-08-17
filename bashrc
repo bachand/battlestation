@@ -28,7 +28,7 @@ source '/usr/local/etc/bash_completion.d/git-completion.bash'
 source '/usr/local/etc/bash_completion.d/git-prompt.sh'
 
 alias ls='ls -alG'
-alias sn='sublime'
+alias sn='code'
 REPOS="$HOME/repos"
 alias cdr="cd $REPOS"
 
