@@ -1,44 +1,124 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 pushd $(dirname $0) > /dev/null
 readonly SCRIPT_DIR=$(pwd)
 popd > /dev/null
 
-verify_and_install_package () {
-  if [[ $# == 1 ]]; then
-    if ! brew list "$1" >/dev/null 2>&1; then
-      brew install "$1" >/dev/null 2>&1;
-    fi
-  else
-    return 1
-  fi
+#######################################
+# Prints the provided message to STDOUT in the default color.
+#
+# Arguments:
+#   Verbose message
+# Returns:
+#######################################
+echo_verbose() {
+  printf "%s\n" "$*" >&2;
 }
 
-function create_link() {
-  local source_dir=$(dirname "$1")
-
-  if [[ ! -d "$source_dir" ]]; then
-    echo "$(tput setaf 1)Directory '$source_dir' does not exist; not creating link to '$2'$(tput setaf 0)"
-  elif [[ ! -f $1 ]] && [[ ! -d $1 ]]; then
-    echo "$1 does not exist, creating link to $2"
-    ln -s "$2" "$1"
-  else
-    if [[ ! -h $1 ]]; then
-      echo "$(tput setaf 1)$1 exists but is not a link; consider removing existing file and re-running this script$(tput setaf 0)"
-    fi
-  fi
+#######################################
+# Prints the provided message to STDOUT in green.
+#
+# Arguments:
+#   Info message
+# Returns:
+#######################################
+echo_info() {
+  printf "$(tput setaf 2)%s$(tput sgr 0)\n" "$*" >&2;
 }
 
-if type brew >/dev/null 2>&1; then
-  verify_and_install_package 'git'
-  if [[ $? != 0 ]]; then
-    echo 'Error verifying or installing git package' 1>&2
+#######################################
+# Prints the provided message to STDERR in red.
+#
+# Arguments:
+#   Error message
+# Returns:
+#######################################
+echo_error() {
+  printf "$(tput setaf 1)%s$(tput sgr 0)\n" "$*" >&2;
+}
+
+#######################################
+# Exits with an error code of 1 if Homebrew is not installed.
+#
+# Arguments:
+# Returns:
+#######################################
+verify_homebrew() {
+  if ! type brew >/dev/null 2>&1; then
+    echo_error 'Please install Homebrew'
     exit 1
   fi
-else
-  echo 'Please install Homebrew' 1>&2
-  exit 1
-fi
+}
+
+#######################################
+# Installs the specified Homebrew package, if necessary.
+#
+# Arguments:
+#   Name of package
+# Returns:
+#######################################
+install_package() {
+  if ! brew list "$1" >/dev/null 2>&1; then
+    echo_info "Installing $1 via Homebrew"
+    brew install "$1"
+  fi
+}
+
+#######################################
+# Creates a symlink if it doesn't already exist. If a file already exists at the target path, prints
+# an error and does nothing.
+#
+# Arguments:
+#   Target Path
+#   Source Path
+# Returns:
+#######################################
+create_link() {
+  if [[ ! -f $1 ]] && [[ ! -d $1 ]]; then
+    ln -s "$2" "$1"
+  elif [[ ! -h $1 ]]; then
+    echo_error "'$1' exists but is not a link"
+  fi
+}
+
+#######################################
+# Symlinks `/usr/local/bin/sublime` to the Sublime binary and installs the Sublime settings. Exits
+# with an error code of 1 if this cannot be achieved.
+#
+# Arguments:
+# Returns:
+#######################################
+setup_sublime() {
+  local sublime_path='/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
+  local settings_source_path="$SCRIPT_DIR/sublime"
+  local settings_target_path="$HOME/Library/Application Support/Sublime Text 3/Packages/User"
+
+  if [[ -f "$sublime_path" ]]; then
+    create_link '/usr/local/bin/sublime' "$sublime_path"
+  else
+    echo_error 'Please install Sublime Text'
+    exit 1
+  fi
+
+  if [[ -d "$settings_target_path" ]]; then
+    find "$settings_source_path" -type f -name *.sublime-settings | while read line; do
+      local settings_filename=$(basename $line)
+
+      local source_path="$settings_source_path/$settings_filename"
+      local target_path="$settings_target_path/$settings_filename"
+
+      create_link "$target_path" "$source_path"
+    done
+  else
+    echo_error 'Cannot install Sublime settings'
+    exit 1
+  fi
+}
+
+verify_homebrew
+
+install_package 'git'
+install_package 'fzf'
 
 create_link "$HOME/.bashrc" "$SCRIPT_DIR/bashrc"
 create_link "$HOME/.bash_profile" "$SCRIPT_DIR/bash_profile"
@@ -49,26 +129,4 @@ create_link "$HOME/Library/Application Support/Code/User/settings.json" "$SCRIPT
 chmod 755 "$PWD/git-cleanup"
 create_link "/usr/local/bin/git-cleanup" "$PWD/git-cleanup"
 
-SUBLIME_PATH='/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
-if [[ -f "$SUBLIME_PATH" ]]; then
-  create_link '/usr/local/bin/sublime' "$SUBLIME_PATH"
-else
-  echo "$(tput setaf 1)Please install Sublime Text and then re-run$(tput sgr 0)"
-  exit 1
-fi
-
-SUBLIME_SETTINGS_SOURCE_PATH="$SCRIPT_DIR/sublime"
-SUBLIME_SETTINGS_TARGET_PATH="$HOME/Library/Application Support/Sublime Text 3/Packages/User"
-if [[ -d "$SUBLIME_SETTINGS_TARGET_PATH" ]]; then
-  find "$SUBLIME_SETTINGS_SOURCE_PATH" -type f -name *.sublime-settings | while read line; do
-    SETTINGS_FILENAME=$(basename $line)
-
-    SOURCE_PATH="$SUBLIME_SETTINGS_SOURCE_PATH/$SETTINGS_FILENAME"
-    TARGET_PATH="$SUBLIME_SETTINGS_TARGET_PATH/$SETTINGS_FILENAME"
-
-    create_link "$TARGET_PATH" "$SOURCE_PATH"
-  done
-else
-  echo "$(tput setaf 1)$SUBLIME_SETTINGS_TARGET_PATH doesn't exist; can't install Sublime settings$(tput sgr 0)"
-  exit 1
-fi
+setup_sublime

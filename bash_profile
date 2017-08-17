@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 export PATH="/usr/local/sbin:$PATH" # Homebrew
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
