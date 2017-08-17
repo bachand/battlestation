@@ -14,6 +14,7 @@ export GIT_PS1_SHOWUPSTREAM='auto'
 export GIT_PS1_SHOWCOLORHINTS=1
 export PROMPT_COMMAND='__git_ps1 "boss:\w" "\\\$ "'
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
 
 readonly CONFIG_WORK="$HOME/Box/Personal/dotfiles/airbnb"
 readonly CONFIG_HOME="$HOME/Dropbox/mbp-retina/dotfiles/home"
