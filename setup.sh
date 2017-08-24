@@ -74,10 +74,22 @@ install_package() {
 # Returns:
 #######################################
 create_link() {
-  if [[ ! -f $1 ]] && [[ ! -d $1 ]]; then
+  local target_path="$1"
+  local source_path="$2"
+
+  if [[ ! -f "$target_path" ]] && [[ -f "$source_path" ]]; then
+    # If the target doesn't exist and the source does, make the link!
     ln -s "$2" "$1"
-  elif [[ ! -h $1 ]]; then
-    echo_error "'$1' exists but is not a link"
+  elif [[ -f "$target_path" ]]; then
+    if link_source_path=$(readlink "$target_path"); then
+      if [[ "$link_source_path" != "$source_path" ]]; then
+        echo_error "$target_path exists but is not a link to $source_path"
+      fi
+    else
+      echo_error "$target_path is not a link"
+    fi
+  elif [[ ! -f $2 ]]; then
+    echo_error "$source_path does not exist"
   fi
 }
 
