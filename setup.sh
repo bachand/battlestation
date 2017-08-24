@@ -138,10 +138,10 @@ install_package 'git'
 install_package 'fzf'
 setup_fzf
 
-create_link "$HOME/.bashrc" "$SCRIPT_DIR/bashrc"
-create_link "$HOME/.bash_profile" "$SCRIPT_DIR/bash_profile"
-create_link "$HOME/.gitconfig" "$SCRIPT_DIR/gitconfig"
-create_link "$HOME/.npmrc" "$SCRIPT_DIR/npmrc"
+create_link "$HOME/.bashrc" "$SCRIPT_DIR/dotfiles/bashrc"
+create_link "$HOME/.bash_profile" "$SCRIPT_DIR/dotfiles/bash_profile"
+create_link "$HOME/.gitconfig" "$SCRIPT_DIR/dotfiles/gitconfig"
+create_link "$HOME/.npmrc" "$SCRIPT_DIR/dotfiles/npmrc"
 create_link "$HOME/Library/Application Support/Code/User/settings.json" "$SCRIPT_DIR/vscode_settings.json"
 
 chmod 755 "$PWD/git-cleanup"
