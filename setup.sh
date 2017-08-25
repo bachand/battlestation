@@ -142,6 +142,8 @@ setup_fzf() {
   fi
 }
 
+# TODO(MB): Things we would have to do if we wanted this be able to be run from a fresh machine:
+#   sudo gem install bundle
 
 verify_homebrew
 
