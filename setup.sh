@@ -142,10 +142,17 @@ setup_fzf() {
   fi
 }
 
+install_gpmdp() {
+  # TODO: install https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-
+}
+
+
 # TODO(MB): Things we would have to do if we wanted this be able to be run from a fresh machine:
 #   sudo gem install bundle
 
 verify_homebrew
+
+install_gpmdp 
 
 install_package 'git'
 
