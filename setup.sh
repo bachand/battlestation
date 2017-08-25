@@ -144,6 +144,7 @@ setup_fzf() {
 
 install_gpmdp() {
   # TODO: install https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-
+  echo "todo" > /dev/null
 }
 
 
