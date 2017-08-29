@@ -41,3 +41,25 @@ elif [[ -f "$CONFIG_HOME" ]]; then
 else
   echo "$(tput setaf 1)Can't find a home or work config file$(tput sgr 0)"
 fi
+
+#######################################
+# Delete pattern. This function will delete the lines in the specified file that match the specified
+# pattern.
+#
+# Arguments:
+#   Pattern
+#   File path
+#######################################
+dp() {
+  if [[ "$#" -ne 2 ]]; then
+    echo "usage: dp <pattern> <file_path>"
+    return 1
+  fi
+
+  local pattern="$1"
+  local file_path="$2"
+
+  sed -i '' "/$pattern/d" "$file_path"
+}
+
+export -f dp
