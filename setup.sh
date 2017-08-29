@@ -9,7 +9,6 @@ popd > /dev/null
 #
 # Arguments:
 #   Verbose message
-# Returns:
 #######################################
 echo_verbose() {
   printf "%s\n" "$*" >&2;
@@ -20,7 +19,6 @@ echo_verbose() {
 #
 # Arguments:
 #   Info message
-# Returns:
 #######################################
 echo_info() {
   printf "$(tput setaf 2)%s$(tput sgr 0)\n" "$*" >&2;
@@ -31,7 +29,6 @@ echo_info() {
 #
 # Arguments:
 #   Error message
-# Returns:
 #######################################
 echo_error() {
   printf "$(tput setaf 1)%s$(tput sgr 0)\n" "$*" >&2;
@@ -39,9 +36,6 @@ echo_error() {
 
 #######################################
 # Exits with an error code of 1 if Homebrew is not installed.
-#
-# Arguments:
-# Returns:
 #######################################
 verify_homebrew() {
   if ! type brew >/dev/null 2>&1; then
@@ -55,7 +49,6 @@ verify_homebrew() {
 #
 # Arguments:
 #   Name of package
-# Returns:
 #######################################
 install_package() {
   if ! brew list "$1" >/dev/null 2>&1; then
@@ -71,7 +64,6 @@ install_package() {
 # Arguments:
 #   Target Path
 #   Source Path
-# Returns:
 #######################################
 create_link() {
   local target_path="$1"
@@ -96,9 +88,6 @@ create_link() {
 #######################################
 # Symlinks `/usr/local/bin/sublime` to the Sublime binary and installs the Sublime settings. Exits
 # with an error code of 1 if this cannot be achieved.
-#
-# Arguments:
-# Returns:
 #######################################
 setup_sublime() {
   local sublime_path='/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
@@ -130,9 +119,6 @@ setup_sublime() {
 #######################################
 # Runs the fzf install script in order to install key bindings and shell completion. Exits with an
 # error code of 1 if that script fails.
-#
-# Arguments:
-# Returns:
 #######################################
 setup_fzf() {
   /usr/local/opt/fzf/install --key-bindings --completion --no-update-rc >/dev/null 2>&1
