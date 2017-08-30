@@ -137,7 +137,7 @@ install_gpmdp() {
 
 verify_homebrew
 
-install_gpmdp 
+install_gpmdp
 
 install_package 'git'
 
