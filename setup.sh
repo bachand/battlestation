@@ -153,7 +153,8 @@ create_link "$HOME/.npmrc" "$SCRIPT_DIR/dotfiles/npmrc"
 
 create_link "$HOME/Library/Application Support/Code/User/settings.json" "$SCRIPT_DIR/vscode_settings.json"
 
-create_link "$HOME/Library/Developer/Xcode/Templates/File Templates/User Templates/Empty Swift File.xctemplate" "$SCRIPT_DIR/xcode/Empty Swift File.xctemplate"
+# TODO: Not working, probably due to spaces. Let's wait until `sync_symlinks` is working.
+# create_link "$HOME/Library/Developer/Xcode/Templates/File Templates/User Templates/Empty Swift File.xctemplate" "$SCRIPT_DIR/xcode/Empty Swift File.xctemplate"
 
 chmod 755 "$PWD/git-cleanup"
 create_link "/usr/local/bin/git-cleanup" "$PWD/git-cleanup"
