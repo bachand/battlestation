@@ -155,7 +155,7 @@ create_link "$HOME/Library/Application Support/Code/User/settings.json" "$CONFIG
 # TODO: Not working, probably due to spaces. Let's wait until `sync_symlinks` is working.
 # create_link "$HOME/Library/Developer/Xcode/Templates/File Templates/User Templates/Empty Swift File.xctemplate" "$REPO_DIR/xcode/Empty Swift File.xctemplate"
 
-chmod 755 "$REPO_DIR/git-cleanup"
-create_link "/usr/local/bin/git-cleanup" "$REPO_DIR/git-cleanup"
+chmod 755 "$REPO_DIR/bin/git-cleanup"
+create_link '/usr/local/bin/git-cleanup' "$REPO_DIR/bin/git-cleanup"
 
 setup_sublime
