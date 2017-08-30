@@ -1,6 +1,7 @@
 #!/bin/bash
 
 readonly REPO_DIR=$(git rev-parse --show-toplevel)
+readonly CONFIG_DIR="$REPO_DIR/config"
 
 #######################################
 # Prints the provided message to STDOUT in the default color.
@@ -89,7 +90,7 @@ create_link() {
 #######################################
 setup_sublime() {
   local sublime_path='/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
-  local settings_source_path="$REPO_DIR/sublime"
+  local settings_source_path="$CONFIG_DIR/sublime"
   local settings_target_path="$HOME/Library/Application Support/Sublime Text 3/Packages/User"
 
   if [[ -f "$sublime_path" ]]; then
@@ -144,12 +145,12 @@ install_package 'git'
 install_package 'fzf'
 setup_fzf
 
-create_link "$HOME/.bashrc" "$REPO_DIR/dotfiles/bashrc"
-create_link "$HOME/.bash_profile" "$REPO_DIR/dotfiles/bash_profile"
-create_link "$HOME/.gitconfig" "$REPO_DIR/dotfiles/gitconfig"
-create_link "$HOME/.npmrc" "$REPO_DIR/dotfiles/npmrc"
+create_link "$HOME/.bashrc" "$CONFIG_DIR/dotfiles/bashrc"
+create_link "$HOME/.bash_profile" "$CONFIG_DIR/dotfiles/bash_profile"
+create_link "$HOME/.gitconfig" "$CONFIG_DIR/dotfiles/gitconfig"
+create_link "$HOME/.npmrc" "$CONFIG_DIR/dotfiles/npmrc"
 
-create_link "$HOME/Library/Application Support/Code/User/settings.json" "$REPO_DIR/vscode_settings.json"
+create_link "$HOME/Library/Application Support/Code/User/settings.json" "$CONFIG_DIR/vscode_settings.json"
 
 # TODO: Not working, probably due to spaces. Let's wait until `sync_symlinks` is working.
 # create_link "$HOME/Library/Developer/Xcode/Templates/File Templates/User Templates/Empty Swift File.xctemplate" "$REPO_DIR/xcode/Empty Swift File.xctemplate"
