@@ -1,2 +1,3 @@
 # battlestation
-How I set up my battlestation
+
+Inspired by https://www.reddit.com/r/battlestations/
