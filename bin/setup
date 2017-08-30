@@ -1,8 +1,6 @@
 #!/bin/bash
 
-pushd $(dirname $0) > /dev/null
-readonly SCRIPT_DIR=$(pwd)
-popd > /dev/null
+readonly REPO_DIR=$(git rev-parse --show-toplevel)
 
 #######################################
 # Prints the provided message to STDOUT in the default color.
@@ -91,7 +89,7 @@ create_link() {
 #######################################
 setup_sublime() {
   local sublime_path='/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
-  local settings_source_path="$SCRIPT_DIR/sublime"
+  local settings_source_path="$REPO_DIR/sublime"
   local settings_target_path="$HOME/Library/Application Support/Sublime Text 3/Packages/User"
 
   if [[ -f "$sublime_path" ]]; then
@@ -146,17 +144,17 @@ install_package 'git'
 install_package 'fzf'
 setup_fzf
 
-create_link "$HOME/.bashrc" "$SCRIPT_DIR/dotfiles/bashrc"
-create_link "$HOME/.bash_profile" "$SCRIPT_DIR/dotfiles/bash_profile"
-create_link "$HOME/.gitconfig" "$SCRIPT_DIR/dotfiles/gitconfig"
-create_link "$HOME/.npmrc" "$SCRIPT_DIR/dotfiles/npmrc"
+create_link "$HOME/.bashrc" "$REPO_DIR/dotfiles/bashrc"
+create_link "$HOME/.bash_profile" "$REPO_DIR/dotfiles/bash_profile"
+create_link "$HOME/.gitconfig" "$REPO_DIR/dotfiles/gitconfig"
+create_link "$HOME/.npmrc" "$REPO_DIR/dotfiles/npmrc"
 
-create_link "$HOME/Library/Application Support/Code/User/settings.json" "$SCRIPT_DIR/vscode_settings.json"
+create_link "$HOME/Library/Application Support/Code/User/settings.json" "$REPO_DIR/vscode_settings.json"
 
 # TODO: Not working, probably due to spaces. Let's wait until `sync_symlinks` is working.
-# create_link "$HOME/Library/Developer/Xcode/Templates/File Templates/User Templates/Empty Swift File.xctemplate" "$SCRIPT_DIR/xcode/Empty Swift File.xctemplate"
+# create_link "$HOME/Library/Developer/Xcode/Templates/File Templates/User Templates/Empty Swift File.xctemplate" "$REPO_DIR/xcode/Empty Swift File.xctemplate"
 
-chmod 755 "$PWD/git-cleanup"
-create_link "/usr/local/bin/git-cleanup" "$PWD/git-cleanup"
+chmod 755 "$REPO_DIR/git-cleanup"
+create_link "/usr/local/bin/git-cleanup" "$REPO_DIR/git-cleanup"
 
 setup_sublime
