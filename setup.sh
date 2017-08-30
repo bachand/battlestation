@@ -150,7 +150,10 @@ create_link "$HOME/.bashrc" "$SCRIPT_DIR/dotfiles/bashrc"
 create_link "$HOME/.bash_profile" "$SCRIPT_DIR/dotfiles/bash_profile"
 create_link "$HOME/.gitconfig" "$SCRIPT_DIR/dotfiles/gitconfig"
 create_link "$HOME/.npmrc" "$SCRIPT_DIR/dotfiles/npmrc"
+
 create_link "$HOME/Library/Application Support/Code/User/settings.json" "$SCRIPT_DIR/vscode_settings.json"
+
+create_link "$HOME/Library/Developer/Xcode/Templates/File Templates/User Templates" "$SCRIPT_DIR/xcode/Empty Swift File.xctemplate/"
 
 chmod 755 "$PWD/git-cleanup"
 create_link "/usr/local/bin/git-cleanup" "$PWD/git-cleanup"
