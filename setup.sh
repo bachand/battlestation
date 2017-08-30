@@ -71,7 +71,7 @@ create_link() {
 
   if [[ ! -f "$target_path" ]] && [[ -f "$source_path" ]]; then
     # If the target doesn't exist and the source does, make the link!
-    ln -s "$2" "$1"
+    ln -s "$source_path" "$target_path"
   elif [[ -f "$target_path" ]]; then
     if link_source_path=$(readlink "$target_path"); then
       if [[ "$link_source_path" != "$source_path" ]]; then
@@ -80,7 +80,7 @@ create_link() {
     else
       echo_error "$target_path is not a link"
     fi
-  elif [[ ! -f $2 ]]; then
+  elif [[ ! -f "$source_path" ]]; then
     echo_error "$source_path does not exist"
   fi
 }
@@ -153,7 +153,7 @@ create_link "$HOME/.npmrc" "$SCRIPT_DIR/dotfiles/npmrc"
 
 create_link "$HOME/Library/Application Support/Code/User/settings.json" "$SCRIPT_DIR/vscode_settings.json"
 
-create_link "$HOME/Library/Developer/Xcode/Templates/File Templates/User Templates" "$SCRIPT_DIR/xcode/Empty Swift File.xctemplate/"
+create_link "$HOME/Library/Developer/Xcode/Templates/File Templates/User Templates/Empty Swift File.xctemplate" "$SCRIPT_DIR/xcode/Empty Swift File.xctemplate"
 
 chmod 755 "$PWD/git-cleanup"
 create_link "/usr/local/bin/git-cleanup" "$PWD/git-cleanup"
