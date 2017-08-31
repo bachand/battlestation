@@ -1,0 +1,161 @@
+#!/bin/bash
+
+readonly REPO_DIR=$(git rev-parse --show-toplevel)
+readonly CONFIG_DIR="$REPO_DIR/config"
+
+#######################################
+# Prints the provided message to STDOUT in the default color.
+#
+# Arguments:
+#   Verbose message
+#######################################
+echo_verbose() {
+  printf "%s\n" "$*" >&2;
+}
+
+#######################################
+# Prints the provided message to STDOUT in green.
+#
+# Arguments:
+#   Info message
+#######################################
+echo_info() {
+  printf "$(tput setaf 2)%s$(tput sgr 0)\n" "$*" >&2;
+}
+
+#######################################
+# Prints the provided message to STDERR in red.
+#
+# Arguments:
+#   Error message
+#######################################
+echo_error() {
+  printf "$(tput setaf 1)%s$(tput sgr 0)\n" "$*" >&2;
+}
+
+#######################################
+# Exits with an error code of 1 if Homebrew is not installed.
+#######################################
+verify_homebrew() {
+  if ! type brew >/dev/null 2>&1; then
+    echo_error 'Please install Homebrew'
+    exit 1
+  fi
+}
+
+#######################################
+# Installs the specified Homebrew package, if necessary.
+#
+# Arguments:
+#   Name of package
+#######################################
+install_package() {
+  if ! brew list "$1" >/dev/null 2>&1; then
+    echo_info "Installing $1 via Homebrew"
+    brew install "$1"
+  fi
+}
+
+#######################################
+# Creates a symlink if it doesn't already exist. If a file already exists at the target path, prints
+# an error and does nothing.
+#
+# Arguments:
+#   Target Path
+#   Source Path
+#######################################
+create_link() {
+  local target_path="$1"
+  local source_path="$2"
+
+  if [[ ! -f "$target_path" ]] && [[ -f "$source_path" ]]; then
+    # If the target doesn't exist and the source does, make the link!
+    ln -s "$source_path" "$target_path"
+  elif [[ -f "$target_path" ]]; then
+    if link_source_path=$(readlink "$target_path"); then
+      if [[ "$link_source_path" != "$source_path" ]]; then
+        echo_error "$target_path exists but is not a link to $source_path"
+      fi
+    else
+      echo_error "$target_path is not a link"
+    fi
+  elif [[ ! -f "$source_path" ]]; then
+    echo_error "$source_path does not exist"
+  fi
+}
+
+#######################################
+# Symlinks `/usr/local/bin/sublime` to the Sublime binary and installs the Sublime settings. Exits
+# with an error code of 1 if this cannot be achieved.
+#######################################
+setup_sublime() {
+  local sublime_path='/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
+  local settings_source_path="$CONFIG_DIR/sublime"
+  local settings_target_path="$HOME/Library/Application Support/Sublime Text 3/Packages/User"
+
+  if [[ -f "$sublime_path" ]]; then
+    create_link '/usr/local/bin/sublime' "$sublime_path"
+  else
+    echo_error 'Please install Sublime Text'
+    exit 1
+  fi
+
+  if [[ -d "$settings_target_path" ]]; then
+    find "$settings_source_path" -type f -name *.sublime-settings | while read line; do
+      local settings_filename=$(basename $line)
+
+      local source_path="$settings_source_path/$settings_filename"
+      local target_path="$settings_target_path/$settings_filename"
+
+      create_link "$target_path" "$source_path"
+    done
+  else
+    echo_error 'Cannot install Sublime settings'
+    exit 1
+  fi
+}
+
+#######################################
+# Runs the fzf install script in order to install key bindings and shell completion. Exits with an
+# error code of 1 if that script fails.
+#######################################
+setup_fzf() {
+  /usr/local/opt/fzf/install --key-bindings --completion --no-update-rc >/dev/null 2>&1
+  if [[ "$?" -ne 0 ]]; then
+    echo_error 'Failed to install fzf'
+    exit 1
+  fi
+}
+
+install_gpmdp() {
+  # TODO: install https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-
+  echo "todo" > /dev/null
+}
+
+
+# TODO(MB): Things we would have to do if we wanted this be able to be run from a fresh machine:
+#   sudo gem install bundle
+
+verify_homebrew
+
+install_gpmdp
+
+install_package 'git'
+
+install_package 'fzf'
+setup_fzf
+
+create_link "$HOME/.bashrc" "$CONFIG_DIR/dotfiles/bashrc"
+create_link "$HOME/.bash_profile" "$CONFIG_DIR/dotfiles/bash_profile"
+create_link "$HOME/.gitconfig" "$CONFIG_DIR/dotfiles/gitconfig"
+create_link "$HOME/.npmrc" "$CONFIG_DIR/dotfiles/npmrc"
+
+create_link "$HOME/Library/Application Support/Code/User/settings.json" "$CONFIG_DIR/vscode_settings.json"
+
+# TODO: Not working, probably due to spaces. Let's wait until `sync_symlinks` is working.
+# create_link "$HOME/Library/Developer/Xcode/Templates/File Templates/User Templates/Empty Swift File.xctemplate" "$REPO_DIR/xcode/Empty Swift File.xctemplate"
+
+chmod 755 "$REPO_DIR/bin/git-cleanup"
+create_link '/usr/local/bin/git-cleanup' "$REPO_DIR/bin/git-cleanup"
+
+setup_sublime
