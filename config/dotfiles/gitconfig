@@ -10,7 +10,7 @@
 [color]
   ui = auto
 [core]
-  editor = sublime -n -w
+  editor = code --wait
   excludesfile = ~/.gitignore_global
   precomposeunicode = true
 [push]
