@@ -6,5 +6,6 @@ $LOAD_PATH.unshift("#{__dir__}/../lib")
 require 'battlestation'
 
 cli = Battlestation::CLI.new
+result = cli.run
 
-exit 0
+exit result
