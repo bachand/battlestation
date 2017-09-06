@@ -140,9 +140,12 @@ verify_homebrew
 
 install_gpmdp
 
-install_package 'git'
+packages=( git ag fzf )
+for package in "${packages[@]}"
+do
+  install_package "$package"
+done
 
-install_package 'fzf'
 setup_fzf
 
 create_link "$HOME/.bashrc" "$CONFIG_DIR/dotfiles/bashrc"
