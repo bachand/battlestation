@@ -137,6 +137,8 @@ install_gpmdp() {
 #   sudo gem install bundle
 
 verify_homebrew
+# Update Homebrew itself
+brew update
 
 install_gpmdp
 
