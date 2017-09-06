@@ -1,2 +1,2 @@
 - Make Sublime text the default way to open .txt, .md, etc. files
-- Add a git command to delete all local branches not matching a regex. This would be useful for deleting all local branches that don't contain my prefix, "mb-".
+- Add a git command to delete all local branches not matching a regex. This would be useful for deleting all local branches that don't contain my prefix, `mb-`.
