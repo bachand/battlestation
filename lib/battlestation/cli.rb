@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'pathname'
+
 module Battlestation
 
   # Responsible of handling all the command line interface logic.
@@ -13,9 +15,15 @@ module Battlestation
     # @param args [Array<String>] command line arguments
     # @return [Integer] UNIX exit code
     def run(args = ARGV)
-      puts args
+      current_pathname = Pathname.new(__FILE__)
+      setup_pathname = current_pathname.dirname + '../../bin/setup'
 
-      return 0
+      output = %x( #{setup_pathname} )
+      exitstatus = $?.exitstatus
+
+      puts output
+
+      return exitstatus
     end
   end
 end

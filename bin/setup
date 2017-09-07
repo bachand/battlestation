@@ -168,3 +168,5 @@ chmod 755 "$REPO_DIR/bin/git-cleanup"
 create_link '/usr/local/bin/git-cleanup' "$REPO_DIR/bin/git-cleanup"
 
 setup_sublime
+
+exit 1
