@@ -2,7 +2,12 @@
 
 Inspired by https://www.reddit.com/r/battlestations/
 
+## Quickstart
 
-### Gotchas
+```bash
+$ $REPO_DIR/bin/battlestation
+```
+
+## Gotchas
 
 - [`setup`](bin/setup) must be run from within the repo.
