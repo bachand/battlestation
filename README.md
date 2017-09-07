@@ -1,6 +1,6 @@
 # battlestation
 
-Inspired by https://www.reddit.com/r/battlestations/
+Inspired by https://www.reddit.com/r/battlestations/. Spoiler alert: my actual battlestation is much less cool than any of these :stuck_out_tongue:
 
 ## Quickstart
 
