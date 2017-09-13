@@ -7,8 +7,6 @@ module Battlestation
   # Responsible of handling all the command line interface logic.
   class CLI
 
-    # @api public
-    #
     # Entry point for the application logic. Here we do the command line arguments processing and
     # inspect the target files.
     #
