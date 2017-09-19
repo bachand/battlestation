@@ -3,7 +3,8 @@
 require 'battlestation'
 
 RSpec.describe Battlestation::Symlink do
-  describe '#exists?' do
+
+  describe '#exists?', :isolated_directory do
     before do
       # create files
     end
