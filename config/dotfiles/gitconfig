@@ -7,6 +7,8 @@
   cm = commit
   rb = rebase
   rs = reset
+  # Rebase the current branch over origin/master
+  rbm = pull --rebase origin master
 [color]
   ui = auto
 [core]
