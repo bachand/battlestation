@@ -12,4 +12,4 @@ $ $REPO_DIR/bin/battlestation
 
 ## Gotchas
 
-- [`setup`](bin/setup) must be run from within the repo.
+- [`setup`](bin/setup) must be run from a directory underneath this repo.
