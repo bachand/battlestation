@@ -136,6 +136,9 @@ install_gpmdp() {
   echo "todo" > /dev/null
 }
 
+install_dropbox() {
+  echo "todo" > /dev/null
+}
 
 # TODO(MB): Things we would have to do if we wanted this be able to be run from a fresh machine:
 #   sudo gem install bundle
@@ -145,6 +148,7 @@ verify_homebrew
 brew update
 
 install_gpmdp
+install_dropbox
 
 packages=( git ag fzf )
 for package in "${packages[@]}"
