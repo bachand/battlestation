@@ -8,7 +8,7 @@
   rb = rebase
   rs = reset
   p = push
-  fp = push -f
+  pf = push -f
   # Rebase the current branch over origin/master
   rbm = pull --rebase origin master
 [color]
