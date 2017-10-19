@@ -4,3 +4,6 @@
 - Figure out a way to not have to run `bundle install` as an admin. Should the first thing that `battlestation` does be install `rbenv`/`rvm`? Or should we specify a path for bundler to install to?
 - Add home folder to Finder sidebar
 - Add https://www.daskeyboard.com/blog/mapping-your-das-keyboards-keys-on-the-mac/
+
+### Paths to sync
+- `$HOME/.ssh`
