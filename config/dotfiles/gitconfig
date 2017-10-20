@@ -5,6 +5,7 @@
   cp = cherry-pick
   last = log -1 HEAD
   cm = commit
+  cma = commit --amend --reuse-message=HEAD
   rb = rebase
   rs = reset
   p = push
