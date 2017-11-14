@@ -32,7 +32,8 @@ alias sn='code'
 REPOS="$HOME/repos"
 alias cdr="cd $REPOS"
 
-alias rmdd="rm -rf $HOME/Library/Developer/Xcode/DerivedData"
+# Apple says that anything requiring a developer to delete `DerivedData` is a serious bug in Xcode.
+alias rmdd='echo I'm sorry `id -un`, I'm afraid I can't do that'
 
 if [[ -f "$CONFIG_WORK" ]]; then
   source "$CONFIG_WORK"
