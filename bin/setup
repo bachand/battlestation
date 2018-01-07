@@ -111,6 +111,7 @@ install_dropbox() {
 # TODO(MB): Things we would have to do if we wanted this be able to be run from a fresh machine:
 #   sudo gem install bundle
 #   Adobe Photoshop
+#   Setting: enable "Remove items from the Trash after 30 days" from the finder settings.
 
 install_homebrew
 # Update Homebrew itself
