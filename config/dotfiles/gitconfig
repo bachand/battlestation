@@ -9,7 +9,7 @@
   rb = rebase
   rs = reset
   p = push
-  pf = push -f
+  pf = push --force-with-lease
   # Rebase the current branch over origin/master
   rbm = pull --rebase origin master
 [color]
