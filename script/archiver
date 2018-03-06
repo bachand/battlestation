@@ -2,26 +2,44 @@
 # frozen_string_literal: true
 
 # A simple way to save a file to an S3 bucket. This script assumes that AWS_ACCESS_KEY_ID and
-# AWS_SECRET_ACCESS_KEY are environment variables in the current session.
+# AWS_SECRET_ACCESS_KEY are environment variables in the current session. It will upload the file
+# with the same name that it has locally. The script will fail to upload if a file of that name
+# already exists in the specified bucket.
 
 require 'aws-sdk-s3'
 
 if ARGV.count != 2
-  STDERR.puts "Usage: archiver bucket_name file_to_be_archived\n"
+  STDERR.puts "Usage: archiver bucket_name source_path\n"
   exit 1
 end
 
 bucket_name=ARGV[0]
-upload_path=ARGV[1]
+source_path=ARGV[1]
+
+begin
+  source_file = File.new(source_path, 'r')
+  source_basename = File.basename(source_path)
+rescue => e
+  STDERR.puts e.message
+  exit 1
+end
+
+credentials = Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'])
 
 Aws.config.update({
   region: 'us-west-2',
-  credentials: Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'])
+  credentials: credentials,
 })
 
 s3 = Aws::S3::Resource.new(region:'us-west-2')
-obj = s3.bucket(bucket_name).object('key')
-result = obj.upload_file(upload_path, {
+object = s3.bucket(bucket_name).object(source_basename)
+
+if object.exists?
+  STDERR.puts "An object named '#{source_basename}' already exists in bucket '#{bucket_name}'"
+  exit 1
+end
+
+result = object.upload_file(source_file, {
   server_side_encryption: 'aws:kms',
   storage_class: 'STANDARD_IA',
 })
