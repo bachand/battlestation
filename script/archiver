@@ -20,7 +20,7 @@ begin
   source_file = File.new(source_path, 'r')
   source_basename = File.basename(source_path)
 rescue => e
-  STDERR.puts e.message
+  STDERR.puts "#{e.message}\n"
   exit 1
 end
 
@@ -35,7 +35,7 @@ s3 = Aws::S3::Resource.new(region:'us-west-2')
 object = s3.bucket(bucket_name).object(source_basename)
 
 if object.exists?
-  STDERR.puts "An object named '#{source_basename}' already exists in bucket '#{bucket_name}'"
+  STDERR.puts "An object named '#{source_basename}' already exists in bucket '#{bucket_name}'\n"
   exit 1
 end
 
