@@ -26,4 +26,4 @@ result = obj.upload_file(upload_path, {
   storage_class: 'STANDARD_IA',
 })
 
-print "Success? #{result}"
+print "Success? #{result}\n"
