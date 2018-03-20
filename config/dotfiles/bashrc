@@ -30,6 +30,8 @@ readonly CONFIG_HOME="$HOME/Dropbox/mbp-retina/dotfiles/home"
 source '/usr/local/etc/bash_completion.d/git-completion.bash'
 source '/usr/local/etc/bash_completion.d/git-prompt.sh'
 
+alias g='git'
+
 alias ls='ls -alG'
 alias sn='code'
 REPOS="$HOME/repos"
