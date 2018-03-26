@@ -8,13 +8,14 @@
 
 require 'aws-sdk-s3'
 
-if ARGV.count != 2
-  STDERR.puts "Usage: archiver bucket_name source_path\n"
+if ARGV.count != 3
+  STDERR.puts "Usage: archiver bucket_name region source_path\n"
   exit 1
 end
 
-bucket_name=ARGV[0]
-source_path=ARGV[1]
+bucket_name = ARGV[0]
+region = ARGV[1]
+source_path = ARGV[2]
 
 begin
   source_file = File.new(source_path, 'r')
@@ -27,11 +28,11 @@ end
 credentials = Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'])
 
 Aws.config.update({
-  region: 'us-west-2',
+  region: region,
   credentials: credentials,
 })
 
-s3 = Aws::S3::Resource.new(region:'us-west-2')
+s3 = Aws::S3::Resource.new(region: region)
 object = s3.bucket(bucket_name).object(source_basename)
 
 if object.exists?
