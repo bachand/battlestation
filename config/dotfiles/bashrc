@@ -71,7 +71,8 @@ dp() {
 export -f dp
 
 #######################################
-# Creates a .tar.gz file in the same directory.
+# Creates a .tar.gz file in the same directory. Hidden files and directories (i.e. those prefixed
+# with '.') are excluded.
 #
 # Arguments:
 #   File or directory path
@@ -79,8 +80,16 @@ export -f dp
 # TODO: Let's exclude hidden files and directories.
 pack() {
   if [[ "$#" -ne 1 ]]; then
-    echo "usage: pack <path>"
+    >&2 echo "usage: pack <path>"
     return 1
+  fi
+
+  if [[ "$1" == '.' ]]; then
+    # Passing '.' to `tar` will create an empty archive due to how `--exclude=".*"` works. There
+    # does not seem to be a trivial way to canonicalize paths on macOS. This simple limitation
+    # (with an easy workaround) avoids a fair amount of added complexity.
+    >&2 echo "Please specify a canonical path instead '.'"
+    return 2
   fi
 
   output_dirname=$(dirname "$1")
@@ -90,10 +99,10 @@ pack() {
 
   if [[ -f "$output_path" ]]; then
     >&2 echo "$output_path already exists!"
-    return 2
+    return 3
   fi
 
-  tar -czf "$output_path" "$1"
+  tar --exclude=".*" -cvzf "$output_path" "$1"
 }
 
 export -f pack
