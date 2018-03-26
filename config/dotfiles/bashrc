@@ -77,7 +77,6 @@ export -f dp
 # Arguments:
 #   File or directory path
 #######################################
-# TODO: Let's exclude hidden files and directories.
 pack() {
   if [[ "$#" -ne 1 ]]; then
     >&2 echo "usage: pack <path>"
