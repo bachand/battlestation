@@ -69,3 +69,20 @@ dp() {
 }
 
 export -f dp
+
+#######################################
+# Creates a .tar.gz file in the same directory.
+#
+# Arguments:
+#   File or directory path
+#######################################
+pack() {
+  if [[ "$#" -ne 1 ]]; then
+    echo "usage: pack <path>"
+    return 1
+  fi
+
+  tar -zcf "$1.tar.gz" "$1"
+}
+
+export -f pack
