@@ -76,13 +76,24 @@ export -f dp
 # Arguments:
 #   File or directory path
 #######################################
+# TODO: Let's exclude hidden files and directories.
 pack() {
   if [[ "$#" -ne 1 ]]; then
     echo "usage: pack <path>"
     return 1
   fi
 
-  tar -zcf "$1.tar.gz" "$1"
+  output_dirname=$(dirname "$1")
+  output_basename=$(basename "$1")".tar.gz"
+
+  output_path="$output_dirname/$output_basename"
+
+  if [[ -f "$output_path" ]]; then
+    >&2 echo "$output_path already exists!"
+    return 2
+  fi
+
+  tar -czf "$output_path" "$1"
 }
 
 export -f pack
