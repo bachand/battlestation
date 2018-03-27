@@ -1,5 +1,26 @@
 #!/bin/bash
 
+#######################################
+# Figures out the directory of the file in which it is invoked.
+# Credit goes to http://www.ostricher.com/2014/10/the-right-way-to-get-the-directory-of-a-bash-script/
+#######################################
+get_script_dir() {
+  local source="${BASH_SOURCE[0]}"
+  # While $source is a symlink, resolve it
+  while [[ -h "$source" ]]; do
+    local dir="$( cd -P "$( dirname "$source" )" && pwd )"
+    source="$( readlink "$source" )"
+    # If $source was a relative symlink (so no "/" as prefix, need to resolve it relative to the symlink base directory
+    [[ $source != /* ]] && source="$dir/$source"
+  done
+  dir="$( cd -P "$( dirname "$source" )" && pwd )"
+  echo "$dir"
+}
+
+readonly PARENT_DIR="$(get_script_dir)"
+
+source "$PARENT_DIR/../../lib/utils.bash"
+
 export PATH="/usr/local/sbin:$PATH" # Homebrew
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PATH=/Applications/CMake.app/Contents/bin:$PATH # for compiling swift repo
@@ -16,3 +37,8 @@ esac
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+if hash rbenv 2>/dev/null
+then
+  eval "$(rbenv init -)"
+fi
