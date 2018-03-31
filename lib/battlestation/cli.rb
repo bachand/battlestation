@@ -14,14 +14,11 @@ module Battlestation
     # @return [Integer] UNIX exit code
     def run(args = ARGV)
       current_pathname = Pathname.new(__FILE__)
-      setup_pathname = current_pathname.dirname + '../../bin/setup'
+      setup_path = File.join current_pathname.dirname, '../../bin/setup'
 
-      output = %x( #{setup_pathname} )
-      exitstatus = $?.exitstatus
+      system 'bash', '-c', setup_path
 
-      puts output
-
-      return exitstatus
+      return $?.exitstatus
     end
   end
 end
