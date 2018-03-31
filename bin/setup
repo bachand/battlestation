@@ -43,23 +43,6 @@ install_homebrew() {
 }
 
 #######################################
-# Installs the specified Homebrew package if it isn't installed. If it is, tries to upgrade the
-# package.
-#
-# Arguments:
-#   Name of package
-#######################################
-install_or_upgrade_package() {
-  if ! brew list "$1" >/dev/null 2>&1; then
-    echo_info "Installing $1 via Homebrew"
-    brew install "$1"
-  else
-    # TODO: find a way to only update if needed to prevent errors in console.
-    brew upgrade "$1"
-  fi
-}
-
-#######################################
 # Creates a symlink if it doesn't already exist. If a file already exists at the target path, prints
 # an error and does nothing.
 #
@@ -120,12 +103,6 @@ brew update
 
 install_gpmdp
 install_dropbox
-
-packages=( git ag fzf )
-for package in "${packages[@]}"
-do
-  install_or_upgrade_package "$package"
-done
 
 setup_fzf
 
