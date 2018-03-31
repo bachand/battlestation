@@ -19,6 +19,8 @@ module Battlestation
 
       install_packages(current_dirname)
 
+      verify_rbenv
+
       return $?.exitstatus
     end
 
@@ -54,6 +56,12 @@ for package in "${packages[@]}"
 do
   install_or_upgrade_package "$package"
 done
+      }
+    end
+
+    def verify_rbenv
+      system 'bash', '-c', %{
+        curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
       }
     end
   end
