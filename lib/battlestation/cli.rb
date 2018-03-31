@@ -21,6 +21,10 @@ module Battlestation
 
       verify_rbenv
 
+      ruby_version_path = File.join current_dirname, '../../.ruby-version'
+      ruby_version = (File.read ruby_version_path).strip
+      install_ruby_if_necessary(ruby_version)
+
       return $?.exitstatus
     end
 
@@ -61,8 +65,18 @@ done
 
     def verify_rbenv
       system 'bash', '-c', %{
-        curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
+curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
       }
+    end
+
+    def install_ruby_if_necessary(version)
+      rbenv_versions_string = `rbenv versions`
+
+      unless rbenv_versions_string.include? version
+        system 'bash', '-c', %{
+rbenv install #{version}
+        }
+      end
     end
   end
 end
