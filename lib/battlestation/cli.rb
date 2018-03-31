@@ -21,9 +21,10 @@ module Battlestation
 
       verify_rbenv
 
-      ruby_version_path = File.join current_dirname, '../../.ruby-version'
-      ruby_version = (File.read ruby_version_path).strip
-      install_ruby_if_necessary(ruby_version)
+      # This is causing issues with gems. Let's reenable when we figure those out.
+      # ruby_version_path = File.join current_dirname, '../../.ruby-version'
+      # ruby_version = (File.read ruby_version_path).strip
+      # install_ruby_if_necessary(ruby_version)
 
       return $?.exitstatus
     end
