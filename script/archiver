@@ -6,6 +6,7 @@
 # with the same name that it has locally. The script will fail to upload if a file of that name
 # already exists in the specified bucket.
 
+require_relative '../lib/battlestation/s3_uploader'
 require 'aws-sdk-s3'
 
 if ARGV.count != 3
@@ -18,31 +19,24 @@ region = ARGV[1]
 source_path = ARGV[2]
 
 begin
-  source_file = File.new(source_path, 'r')
-  source_basename = File.basename(source_path)
+  source = File.new(source_path, 'r')
 rescue => e
   STDERR.puts "#{e.message}\n"
   exit 1
 end
 
-credentials = Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'])
+uploader = Battlestation::S3Uploader.new()
 
-Aws.config.update({
+result = uploader.upload(source,
+  credentials: Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY']),
   region: region,
-  credentials: credentials,
-})
+  bucket_name: bucket_name,
+)
 
-s3 = Aws::S3::Resource.new(region: region)
-object = s3.bucket(bucket_name).object(source_basename)
-
-if object.exists?
-  STDERR.puts "An object named '#{source_basename}' already exists in bucket '#{bucket_name}'\n"
+if result
+  STDOUT.puts 'Success'
+  exit 0
+else
+  STDOUT.puts 'Failure'
   exit 1
 end
-
-result = object.upload_file(source_file, {
-  server_side_encryption: 'aws:kms',
-  storage_class: 'STANDARD_IA',
-})
-
-print "Success? #{result}\n"
