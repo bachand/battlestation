@@ -30,6 +30,9 @@ module Battlestation
 
       install_gems(current_dirname)
 
+      STDOUT.puts "Setup completed."
+      STDOUT.puts "Please close and reopen your shell."
+
       return $?.exitstatus
     end
 
