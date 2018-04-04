@@ -24,9 +24,11 @@ module Battlestation
       ruby_version_path = File.join current_dirname, '../../.ruby-version'
       ruby_version = (File.read ruby_version_path).strip
 
-      install_ruby_if_necessary(ruby_version)
+      install_ruby(ruby_version)
 
       set_ruby_version(ruby_version)
+
+      install_gems(current_dirname)
 
       return $?.exitstatus
     end
@@ -72,7 +74,8 @@ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor 
       }
     end
 
-    def install_ruby_if_necessary(version)
+    # Installs Ruby if necessary.
+    def install_ruby(version)
       rbenv_versions_string = `rbenv versions`
 
       unless rbenv_versions_string.include? version
@@ -85,6 +88,17 @@ rbenv install #{version}
     def set_ruby_version(version)
       system 'bash', '-c', %{
 rbenv global #{version}
+rbenv shell #{version}
+      }
+    end
+
+    def install_gems(current_dirname)
+      system 'bash', '-c', %{
+gem install bundler
+
+cd "#{current_dirname}/../../"
+
+bundle install
       }
     end
   end
