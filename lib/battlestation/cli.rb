@@ -21,10 +21,12 @@ module Battlestation
 
       verify_rbenv
 
-      # This is causing issues with gems. Let's reenable when we figure those out.
       ruby_version_path = File.join current_dirname, '../../.ruby-version'
       ruby_version = (File.read ruby_version_path).strip
+
       install_ruby_if_necessary(ruby_version)
+
+      set_ruby_version(ruby_version)
 
       return $?.exitstatus
     end
@@ -78,6 +80,12 @@ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor 
 rbenv install #{version}
         }
       end
+    end
+
+    def set_ruby_version(version)
+      system 'bash', '-c', %{
+rbenv global #{version}
+      }
     end
   end
 end
