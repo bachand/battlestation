@@ -1,4 +1,4 @@
-# battlestation [WIP]
+# My Battlestation
 
 Inspired by https://www.reddit.com/r/battlestations/.
 
