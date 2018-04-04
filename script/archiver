@@ -6,6 +6,13 @@
 # with the same name that it has locally. The script will fail to upload if a file of that name
 # already exists in the specified bucket.
 
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org'
+  gem 'aws-sdk-s3', '~> 1'
+end
+
 require_relative '../lib/battlestation/s3_uploader'
 require 'aws-sdk-s3'
 

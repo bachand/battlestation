@@ -14,16 +14,6 @@ echo_verbose() {
 }
 
 #######################################
-# Prints the provided message to STDOUT in green.
-#
-# Arguments:
-#   Info message
-#######################################
-echo_info() {
-  printf "$(tput setaf 2)%s$(tput sgr 0)\n" "$*" >&2;
-}
-
-#######################################
 # Prints the provided message to STDERR in red.
 #
 # Arguments:

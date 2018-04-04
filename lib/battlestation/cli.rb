@@ -44,6 +44,16 @@ module Battlestation
       # Slowly bringing code into ruby from the monolithic setup script.
       system 'bash', '-c', %{
 #######################################
+# Prints the provided message to STDOUT in green.
+#
+# Arguments:
+#   Info message
+#######################################
+echo_info() {
+  printf "$(tput setaf 2)%s$(tput sgr 0)\n" "$*" >&2;
+}
+
+#######################################
 # Installs the specified Homebrew package if it isn't installed. If it is, tries to upgrade the
 # package.
 #
@@ -80,6 +90,9 @@ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor 
 
       unless rbenv_versions_string.include? version
         system 'bash', '-c', %{
+rbenv init
+eval "$(rbenv init -)"
+
 rbenv install #{version}
         }
       end
@@ -87,6 +100,9 @@ rbenv install #{version}
 
     def set_ruby_version(version)
       system 'bash', '-c', %{
+rbenv init
+eval "$(rbenv init -)"
+
 rbenv global #{version}
 rbenv shell #{version}
       }
@@ -94,10 +110,11 @@ rbenv shell #{version}
 
     def install_gems(current_dirname)
       system 'bash', '-c', %{
+rbenv init
+eval "$(rbenv init -)"
+
 gem install bundler
-
 cd "#{current_dirname}/../../"
-
 bundle install
       }
     end
