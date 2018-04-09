@@ -37,8 +37,10 @@ pack() {
     return 2
   fi
 
+  input_basename=$(basename "$1")
+
   output_dirname=$(dirname "$1")
-  output_basename=$(basename "$1")".tar.gz"
+  output_basename="$input_basename.tar.gz"
 
   output_path="$output_dirname/$output_basename"
 
@@ -47,7 +49,7 @@ pack() {
     return 3
   fi
 
-  tar --exclude=".*" -cvzf "$output_path" "$1"
+  tar --exclude=".*" -cvzf "$output_path" -C "$output_dirname" "$input_basename"
 }
 
 #######################################
