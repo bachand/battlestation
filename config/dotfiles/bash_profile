@@ -19,7 +19,7 @@ get_script_dir() {
 
 readonly PARENT_DIR="$(get_script_dir)"
 
-source "$PARENT_DIR/../../lib/utils.bash"
+source "$PARENT_DIR/../../lib/functions.bash"
 
 export PATH="/usr/local/sbin:$PATH" # Homebrew
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
