@@ -21,9 +21,10 @@ readonly PARENT_DIR="$(get_script_dir)"
 
 source "$PARENT_DIR/../../lib/functions.bash"
 
+# These should move to `.profile` (which has yet to be made)
+export PATH="$HOME/Library/Python/3.6/bin:$PATH" # Python
 export PATH="/usr/local/sbin:$PATH" # Homebrew
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export PATH=/Applications/CMake.app/Contents/bin:$PATH # for compiling swift repo
+export PATH="/Applications/CMake.app/Contents/bin:$PATH" # for compiling swift repo
 
 # only source .bashrc if we are interactive
 case "$-" in
@@ -31,8 +32,6 @@ case "$-" in
   [[ -r ~/.bashrc ]] && source ~/.bashrc
   ;;
 esac
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

@@ -17,6 +17,8 @@ module Battlestation
 
       run_legacy_setup_script(current_dirname)
 
+      install_python()
+
       install_packages(current_dirname)
 
       verify_rbenv
@@ -41,6 +43,20 @@ module Battlestation
     def run_legacy_setup_script(current_dirname)
       setup_path = File.join current_dirname, '../../bin/setup'
       system 'bash', '-c', setup_path
+    end
+
+    def install_python
+      # Find a way to automate installing python itself
+      system 'bash', '-c', %{
+        curl -O https://bootstrap.pypa.io/get-pip.py
+        python3 get-pip.py --user
+}
+    end
+
+    def install_aws_cli
+      system 'bash', '-c', %{
+        pip3 install awscli --upgrade --user
+}
     end
 
     def install_packages(current_dirname)
@@ -73,7 +89,7 @@ install_or_upgrade_package() {
   fi
 }
 
-packages=( git ag fzf rbenv )
+packages=( git ag fzf rbenv youtube-dl )
 for package in "${packages[@]}"
 do
   install_or_upgrade_package "$package"
