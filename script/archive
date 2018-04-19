@@ -17,7 +17,7 @@ require_relative '../lib/battlestation/s3_uploader'
 require 'aws-sdk-s3'
 
 if ARGV.count != 3
-  STDERR.puts "Usage: archiver bucket_name region source_path\n"
+  STDERR.puts "Usage: #{File.basename(__FILE__)} bucket_name region source_path\n"
   exit 1
 end
 

@@ -2,3 +2,14 @@
 # frozen_string_literal: true
 
 # A script for removing personally identified information from files.
+
+if ARGV.count != 1
+  STDERR.puts "Usage: #{File.basename(__FILE__)} path\n"
+  exit 1
+end
+
+path = ARGV[0]
+
+STDERR.puts "'#{path}' does not exist\n" unless File.exist?(path)
+
+raise NotImplementedError
