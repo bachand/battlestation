@@ -144,14 +144,14 @@
 	SE5bYnZ4en+Kk5uep7m8wQAAAAAAAAEBAAAAAAAAABkAAAAAAAAAAAAAAAAAAADD
 	</data>
 	<key>BackgroundBlur</key>
-	<real>0.09630148121387283</real>
+	<real>0.10000000000000001</real>
 	<key>BackgroundColor</key>
 	<data>
 	YnBsaXN0MDDUAQIDBAUGFRZYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3AS
-	AAGGoKMHCA9VJG51bGzTCQoLDA0OVU5TUkdCXE5TQ29sb3JTcGFjZVYkY2xhc3NLMCAw
-	IDAgMC44NQAQAYAC0hAREhNaJGNsYXNzbmFtZVgkY2xhc3Nlc1dOU0NvbG9yohIUWE5T
-	T2JqZWN0XxAPTlNLZXllZEFyY2hpdmVy0RcYVHJvb3SAAQgRGiMtMjc7QUhOW2JucHJ3
-	gouTlp+xtLkAAAAAAAABAQAAAAAAAAAZAAAAAAAAAAAAAAAAAAAAuw==
+	AAGGoKMHCA9VJG51bGzTCQoLDA0OVU5TUkdCXE5TQ29sb3JTcGFjZVYkY2xhc3NKMCAw
+	IDAgMC41ABABgALSEBESE1okY2xhc3NuYW1lWCRjbGFzc2VzV05TQ29sb3KiEhRYTlNP
+	YmplY3RfEA9OU0tleWVkQXJjaGl2ZXLRFxhUcm9vdIABCBEaIy0yNztBSE5bYm1vcXaB
+	ipKVnrCzuAAAAAAAAAEBAAAAAAAAABkAAAAAAAAAAAAAAAAAAAC6
 	</data>
 	<key>Bell</key>
 	<true/>
@@ -186,7 +186,7 @@
 	<key>Linewrap</key>
 	<true/>
 	<key>ProfileCurrentVersion</key>
-	<real>2.02</real>
+	<real>2.0499999999999998</real>
 	<key>SelectionColor</key>
 	<data>
 	YnBsaXN0MDDUAQIDBAUGFRZYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3AS
@@ -232,8 +232,6 @@
 	<key>UseBoldFonts</key>
 	<true/>
 	<key>UseBrightBold</key>
-	<false/>
-	<key>VisualBell</key>
 	<false/>
 	<key>blackColour</key>
 	<data>
@@ -315,14 +313,6 @@
 		<string>[33~</string>
 		<key>$F70F</key>
 		<string>[34~</string>
-		<key>$F729</key>
-		<string>[H</string>
-		<key>$F72B</key>
-		<string>[F</string>
-		<key>$F72C</key>
-		<string>[5~</string>
-		<key>$F72D</key>
-		<string>[6~</string>
 		<key>F704</key>
 		<string>OP</string>
 		<key>F705</key>
@@ -369,10 +359,6 @@
 		<string>[H</string>
 		<key>F72B</key>
 		<string>[F</string>
-		<key>F72C</key>
-		<string>scrollPageUp:</string>
-		<key>F72D</key>
-		<string>scrollPageDown:</string>
 		<key>^F702</key>
 		<string>[5D</string>
 		<key>^F703</key>
@@ -418,7 +404,7 @@
 	ZmZmAYPn5uY+g/79fT8Bhg==
 	</data>
 	<key>name</key>
-	<string>Michael</string>
+	<string>terminal_theme</string>
 	<key>redColour</key>
 	<data>
 	BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARm
