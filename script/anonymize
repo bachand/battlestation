@@ -1,15 +1,34 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative '../lib/battlestation/utils.rb'
+
 # A script for removing personally identified information from files.
 
+PROGRAM_NAME = "#{File.basename(__FILE__)}"
+
 if ARGV.count != 1
-  STDERR.puts "Usage: #{File.basename(__FILE__)} path\n"
-  exit 1
+  Battlestation::Utils.exit_on_error("Usage: #{PROGRAM_NAME} path")
 end
 
 path = ARGV[0]
 
-STDERR.puts "'#{path}' does not exist\n" unless File.exist?(path)
+unless File.exist?(path)
+  Battlestation::Utils.exit_on_error("'#{path}' does not exist")
+end
 
-raise NotImplementedError
+if File.directory?(path)
+  Battlestation::Utils.exit_on_error("'#{path}' must be a file")
+end
+
+`exiftool "#{path}" >/dev/null 2>&1;`
+
+if $?.exitstatus != 0
+  Battlestation::Utils.exit_on_error("#{PROGRAM_NAME} only supports images 😢. Stay tuned 📺")
+else
+  system 'bash', '-c', %{ exiftool -all= "#{path}" }
+
+  if $?.exitstatus != 0
+    Battlestation::Utils.exit_on_error("Error anonymizing '#{path}'")
+  end
+end
