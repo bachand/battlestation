@@ -4,9 +4,6 @@
 
 unset HISTFILESIZE
 
-# increase max number of files that can be open at once
-ulimit -n 512
-
 export GREP_OPTIONS='--color=auto'
 export VISUAL=sublime
 export EDITOR="$VISUAL"
