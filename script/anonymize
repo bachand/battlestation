@@ -26,7 +26,11 @@ end
 if $?.exitstatus != 0
   Battlestation::Utils.exit_on_error("#{PROGRAM_NAME} only supports images 😢. Stay tuned 📺")
 else
-  system 'bash', '-c', %{ exiftool -all= "#{path}" }
+  system 'bash', '-c', %{
+orientation_value=$(exiftool -s -s -s -orientation "#{path}")
+exiftool -all= "#{path}"
+exiftool -orientation="$orientation_value" "#{path}"
+}
 
   if $?.exitstatus != 0
     Battlestation::Utils.exit_on_error("Error anonymizing '#{path}'")
