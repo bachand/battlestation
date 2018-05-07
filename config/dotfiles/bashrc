@@ -26,6 +26,7 @@ source '/usr/local/etc/bash_completion.d/git-completion.bash'
 source '/usr/local/etc/bash_completion.d/git-prompt.sh'
 
 alias g='git'
+alias be='bundle exec'
 
 alias ls='ls -alG'
 alias sn='code'
