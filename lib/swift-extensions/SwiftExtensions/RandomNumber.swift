@@ -34,6 +34,7 @@ public struct RandomNumber {
 }
 
 // MARK: - RandomNumberError
+
 public enum RandomNumberError: Error {
   /// The count of `allowedValues` must fit in a UInt32 due to limitations in Apple's `arc4random` library.
   case tooLarge
