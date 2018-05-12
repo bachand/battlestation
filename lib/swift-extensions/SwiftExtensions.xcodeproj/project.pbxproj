@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4CA89E0020A6ED3B00F28EAF /* SwiftExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA89DF620A6ED3B00F28EAF /* SwiftExtensions.framework */; };
-		4CA89E0520A6ED3B00F28EAF /* SwiftExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA89E0420A6ED3B00F28EAF /* SwiftExtensionsTests.swift */; };
+		4CA89E0520A6ED3B00F28EAF /* RandomNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA89E0420A6ED3B00F28EAF /* RandomNumberTests.swift */; };
 		4CA89E0720A6ED3B00F28EAF /* SwiftExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4CA89DF920A6ED3B00F28EAF /* SwiftExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CA89E0F20A6EDB000F28EAF /* RandomNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA89E0E20A6EDB000F28EAF /* RandomNumber.swift */; };
 /* End PBXBuildFile section */
@@ -28,7 +28,7 @@
 		4CA89DF920A6ED3B00F28EAF /* SwiftExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftExtensions.h; sourceTree = "<group>"; };
 		4CA89DFA20A6ED3B00F28EAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CA89DFF20A6ED3B00F28EAF /* SwiftExtensionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftExtensionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4CA89E0420A6ED3B00F28EAF /* SwiftExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExtensionsTests.swift; sourceTree = "<group>"; };
+		4CA89E0420A6ED3B00F28EAF /* RandomNumberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNumberTests.swift; sourceTree = "<group>"; };
 		4CA89E0620A6ED3B00F28EAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CA89E0E20A6EDB000F28EAF /* RandomNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNumber.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,7 +83,7 @@
 		4CA89E0320A6ED3B00F28EAF /* SwiftExtensionsTests */ = {
 			isa = PBXGroup;
 			children = (
-				4CA89E0420A6ED3B00F28EAF /* SwiftExtensionsTests.swift */,
+				4CA89E0420A6ED3B00F28EAF /* RandomNumberTests.swift */,
 				4CA89E0620A6ED3B00F28EAF /* Info.plist */,
 			);
 			path = SwiftExtensionsTests;
@@ -205,7 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CA89E0520A6ED3B00F28EAF /* SwiftExtensionsTests.swift in Sources */,
+				4CA89E0520A6ED3B00F28EAF /* RandomNumberTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
