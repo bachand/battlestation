@@ -27,7 +27,7 @@ public struct RandomNumber {
   private let allowedValues: CountableClosedRange<Value>
 
   lazy var value: Value = {
-    // This downcase is OK since we assert in the initalizer.
+    // This downcast is OK since we assert in the initalizer.
     let arc4random_upper_bound = UInt32(allowedValues.upperBound + 1)
     return Int(arc4random_uniform(arc4random_upper_bound))
   }()
