@@ -26,6 +26,7 @@ class SwiftExtensionsTests: XCTestCase {
   }
   
   func test_RandomNumber_value() {
-    
+    // Write a test that runs this a bunch of times and probabilistically guarantees that all
+    // `allowedValues` are generated.
   }
 }
