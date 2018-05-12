@@ -1,5 +1,8 @@
 .DS_Store
 
+# Xcode settings
+xcuserdata/
+
 # Ideally this wouldn't be here. Instead I should figure out how to download this to a temp
 # directory. It is a product of the Python installation.
 bin/get-pip.py
