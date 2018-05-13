@@ -11,15 +11,15 @@ import XCTest
 final class RandomNumberTests: XCTestCase {
 
   func testThatAllAllowedValuesAreUtilized() {
-    let allowedValues = 0...100
+    let allowedValues = 0...99
 
     // Let's assume that if we run this `allowedValues.upperBound` * 100 times that it would be
     // _highly improbable_ not to see each value. As such, even though this test isn't guaranteed
     // to succeed, the false negative rate should be acceptably low.
-    var seenValueCounts = Array<RandomNumber.Value>.init(repeating: 0, count: allowedValues.count)
+    var seenValueCounts = Array<UInt>.init(repeating: 0, count: allowedValues.count)
     for _ in 0...(allowedValues.upperBound * 100) {
-      var randomNumber = try! RandomNumber(allowedValues)
-      seenValueCounts[randomNumber.value] += 1
+      var randomNumber = try! RandomNumber(count: Int32(allowedValues.count))
+      seenValueCounts[Int(randomNumber.value)] += 1
     }
 
     for value in allowedValues {

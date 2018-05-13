@@ -9,35 +9,42 @@ import Darwin
 
 // MARK: - RandomNumber
 
+/// By default a `RandomNumber` represents a value between 0 and 9, inclusive.
 public struct RandomNumber {
 
-  public typealias Value = Int
+  public typealias Value = Int32
 
   // MARK: Lifecycle
 
-  /// - param allowedValues: Count must be fit in a UInt32.
-  public init(_ allowedValues: CountableClosedRange<Value> = 0...9) throws {
-    guard allowedValues.lowerBound >= 0 else { throw RandomNumberError.notImplemented }
-    guard UInt32(exactly: allowedValues.count) != nil else { throw RandomNumberError.tooLarge }
-    self.allowedValues = allowedValues
+  /// - param start: The start of the inclusive range of allowed values.
+  /// - param start: The number of allowed values.
+  public init(start: Int = 0, count: Int32 = 10) throws {
+    guard start >= 0 else { throw RandomNumberError.notImplemented }
+    self.start = start
+    self.count = count
   }
 
   // MARK: Public
 
-  public let allowedValues: CountableClosedRange<Value>
+  public var possibleValues: CountableRange<Int> {
+    // Casting an `Int32` to an `Int` is lossless.
+    return (start..<(Int(count)-start))
+  }
 
   public lazy var value: Value = {
-    // This downcast is OK since we assert in the initalizer.
-    let arc4random_upper_bound = UInt32(allowedValues.upperBound + 1)
-    return Int(arc4random_uniform(arc4random_upper_bound))
+    // Eventually I will want to shift this value based on `start`.
+    return Int32(arc4random_uniform(UInt32(count)))
   }()
+
+  // MARK: Private
+
+  private let start: Int
+  private let count: Int32
 }
 
 // MARK: - RandomNumberError
 
 public enum RandomNumberError: Error {
-  /// The count of `allowedValues` must fit in a UInt32 due to limitations in Apple's `arc4random` library.
-  case tooLarge
   /// This fucntionality is intended to exist but hasn't yet been implemented.
   case notImplemented
 }
