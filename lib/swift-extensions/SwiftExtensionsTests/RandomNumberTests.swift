@@ -18,7 +18,7 @@ final class RandomNumberTests: XCTestCase {
     // to succeed, the false negative rate should be acceptably low.
     var seenValueCounts = Array<UInt>.init(repeating: 0, count: allowedValues.count)
     for _ in 0...(allowedValues.upperBound * 100) {
-      var randomNumber = try! RandomNumber(count: Int32(allowedValues.count))
+      var randomNumber = try! RandomNumber(count: UInt32(allowedValues.count))
       seenValueCounts[Int(randomNumber.value)] += 1
     }
 
