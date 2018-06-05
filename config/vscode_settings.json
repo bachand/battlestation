@@ -2,5 +2,8 @@
 {
   "editor.tabSize": 2,
   "editor.rulers": [100],
-  "files.trimTrailingWhitespace": true
+  "files.trimTrailingWhitespace": true,
+  "window.zoomLevel": 1,
+  "editor.wordWrap": "bounded",
+  "editor.wordWrapColumn": 100
 }
