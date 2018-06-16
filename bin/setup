@@ -72,11 +72,6 @@ setup_fzf() {
   fi
 }
 
-install_gpmdp() {
-  # TODO: install https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-
-  echo "todo" > /dev/null
-}
-
 install_dropbox() {
   echo "todo" > /dev/null
 }
@@ -91,7 +86,6 @@ install_homebrew
 # Update Homebrew itself
 brew update
 
-install_gpmdp
 install_dropbox
 
 setup_fzf
