@@ -89,7 +89,7 @@ install_or_upgrade_package() {
   fi
 }
 
-packages=( git ag fzf rbenv youtube-dl exiftool cloc )
+packages=( git ag fzf rbenv youtube-dl exiftool cloc handbrake )
 for package in "${packages[@]}"
 do
   install_or_upgrade_package "$package"
