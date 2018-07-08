@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../output'
+
 module Battlestation
 
   # A wrapper around the logic for uploading files to S3.
@@ -32,7 +34,8 @@ module Battlestation
 
       if object.exists?
         # TODO: this class should raise an Error instead of printing.
-        STDERR.puts "An object named '#{source_basename}' already exists in bucket '#{bucket_name}'\n"
+        message = "An object named '#{source_basename}' already exists in bucket '#{bucket_name}'"
+        Output.put_error(message)
         return false
       end
 

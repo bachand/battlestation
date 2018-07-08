@@ -14,10 +14,11 @@ gemfile do
 end
 
 require_relative '../lib/battlestation/s3_uploader'
+require_relative '../lib/output'
 require 'aws-sdk-s3'
 
 if ARGV.count != 3
-  STDERR.puts "Usage: #{File.basename(__FILE__)} bucket_name region source_path\n"
+  Output.put_info("Usage: #{File.basename(__FILE__)} bucket_name region source_path")
   exit 1
 end
 
@@ -28,7 +29,7 @@ source_path = ARGV[2]
 begin
   source = File.new(source_path, 'r')
 rescue => e
-  STDERR.puts "#{e.message}\n"
+  Output.put_error(e.message)
   exit 1
 end
 
@@ -41,9 +42,9 @@ result = uploader.upload(source,
 )
 
 if result
-  STDOUT.puts 'Success'
+  Output.put_success('Success')
   exit 0
 else
-  STDOUT.puts 'Failure'
+  Output.put_error('Failure')
   exit 1
 end

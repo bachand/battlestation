@@ -1,4 +1,5 @@
 # Functions for outputting various types of messages to the user.
+
 module Output
 
   def self.put_success(text)
