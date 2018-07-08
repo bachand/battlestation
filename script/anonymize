@@ -1,14 +1,16 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../lib/battlestation/utils.rb'
+require_relative '../lib/battlestation/utils'
+require_relative '../lib/output'
 
 # A script for removing personally identified information from files.
 
 PROGRAM_NAME = "#{File.basename(__FILE__)}"
 
 if ARGV.count != 1
-  Battlestation::Utils.exit_on_error("Usage: #{PROGRAM_NAME} path")
+  Output.put_info("Usage: #{PROGRAM_NAME} path")
+  exit 1
 end
 
 path = ARGV[0]
