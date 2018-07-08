@@ -2,7 +2,7 @@
 
 require 'pathname'
 
-require_relative 'output'
+require_relative '../output'
 
 module Battlestation
 
