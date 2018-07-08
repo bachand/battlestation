@@ -6,33 +6,35 @@ require 'optparse'
 require 'yaml'
 require 'pathname'
 
+require_relative '../lib/output'
+
 optparse = OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename(__FILE__)} yaml_path"
 
   opts.on( '-h', '--help', 'Display usage' ) do
-    puts opts
-    exit
+    Output.put_info(opts)
+    exit 1
   end
 end
 
 optparse.parse!
 
 unless ARGV.count == 1
-  STDERR.puts 'Specify a single file.'
+  Output.put_error('Specify a single file.')
   exit 1
 end
 
 yaml_path = ARGV[0]
 
 unless File.exists? yaml_path
-  STDERR.puts "#{yaml_path} does not exist."
+  Output.put_error("#{yaml_path} does not exist.")
   exit 1
 end
 
 yaml = YAML.load_file(yaml_path)
 
 unless yaml.is_a? Array
-  STDERR.puts "File must be a YAML array."
+  Output.put_error("File must be a YAML array.")
   exit 1
 end
 
