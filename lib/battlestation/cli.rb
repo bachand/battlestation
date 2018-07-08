@@ -22,6 +22,8 @@ module Battlestation
 
       install_python()
 
+      install_aws_cli()
+
       install_packages(current_dirname)
 
       verify_rbenv
@@ -62,7 +64,7 @@ module Battlestation
 
     def install_aws_cli
       system 'bash', '-c', %{
-        pip3 install awscli --upgrade --user
+        pip install awscli --upgrade --user
 }
     end
 
