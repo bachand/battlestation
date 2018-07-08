@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'pathname'
+require 'tmpdir'
 
 require_relative '../output'
 
@@ -49,10 +50,14 @@ module Battlestation
 
     def install_python
       # Find a way to automate installing python itself
-      system 'bash', '-c', %{
-        curl -O https://bootstrap.pypa.io/get-pip.py
-        python3 get-pip.py --user
+      Dir.mktmpdir do |tmpdir|
+        Dir.chdir(tmpdir) do
+          system 'bash', '-c', %{
+            curl -O https://bootstrap.pypa.io/get-pip.py
+            python3 get-pip.py --user
 }
+        end
+      end
     end
 
     def install_aws_cli
