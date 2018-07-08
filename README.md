@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/bachand/battlestation.svg?style=shield)](https://circleci.com/gh/bachand/battlestation)
+
 # My Battlestation
 
 Inspired by https://www.reddit.com/r/battlestations/.
