@@ -2,6 +2,8 @@
 
 require 'pathname'
 
+require_relative 'output'
+
 module Battlestation
 
   # Responsible of handling all the command line interface logic.
@@ -32,8 +34,8 @@ module Battlestation
 
       install_gems(current_dirname)
 
-      STDOUT.puts "Setup completed."
-      STDOUT.puts "Please close and reopen your shell."
+      Output.put_success("Setup completed.")
+      Output.put_info("Please close and reopen your shell.")
 
       return $?.exitstatus
     end
