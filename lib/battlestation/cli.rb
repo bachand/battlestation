@@ -64,7 +64,9 @@ module Battlestation
 
     def install_aws_cli
       system 'bash', '-c', %{
-        pip install awscli --upgrade --user
+        if ! pip show awscli >/dev/null; then
+          pip install awscli --upgrade --user
+        fi
 }
     end
 
