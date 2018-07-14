@@ -45,6 +45,16 @@ module Battlestation
 
     private
 
+    def configure_xcode
+      system 'bash', '-c', %{
+defaults write com.apple.dt.Xcode DVTTextEditorTrimTrailingWhitespace -bool YES
+defaults write com.apple.dt.Xcode DVTTextEditorTrimWhitespaceOnlyLines -bool YES
+defaults write com.apple.dt.Xcode DVTTextIndentTabWidth -int 2
+defaults write com.apple.dt.Xcode DVTTextIndentWidth -int 2
+defaults write com.apple.dt.Xcode DVTTextPageGuideLocation -int 100
+}
+    end
+
     def run_legacy_setup_script(current_dirname)
       setup_path = File.join current_dirname, '../../bin/setup'
       system 'bash', '-c', setup_path
@@ -55,8 +65,8 @@ module Battlestation
       Dir.mktmpdir do |tmpdir|
         Dir.chdir(tmpdir) do
           system 'bash', '-c', %{
-            curl -O https://bootstrap.pypa.io/get-pip.py
-            python3 get-pip.py --user
+curl -O https://bootstrap.pypa.io/get-pip.py
+python3 get-pip.py --user
 }
         end
       end
@@ -64,9 +74,9 @@ module Battlestation
 
     def install_aws_cli
       system 'bash', '-c', %{
-        if ! pip show awscli >/dev/null; then
-          pip install awscli --upgrade --user
-        fi
+if ! pip show awscli >/dev/null; then
+  pip install awscli --upgrade --user
+fi
 }
     end
 
