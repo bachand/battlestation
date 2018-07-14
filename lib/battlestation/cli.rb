@@ -18,6 +18,8 @@ module Battlestation
     def run(args = ARGV)
       current_dirname = Pathname.new(__FILE__).dirname
 
+      configure_xcode()
+
       run_legacy_setup_script(current_dirname)
 
       install_python()
