@@ -10,6 +10,7 @@ alias ls='ls -alG'
 alias sn='code'
 alias cdr="cd $HOME/repos"
 
+alias cloudformation='aws cloudformation'
 alias s3='aws s3'
 
 # Apple says that anything requiring a developer to delete `DerivedData` is a serious bug in Xcode.
