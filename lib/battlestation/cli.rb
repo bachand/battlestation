@@ -112,7 +112,7 @@ install_or_upgrade_package() {
   fi
 }
 
-packages=( git ag fzf rbenv youtube-dl exiftool cloc handbrake ios-sim )
+packages=( git ag fzf rbenv youtube-dl exiftool cloc handbrake ios-sim imagemagick )
 for package in "${packages[@]}"
 do
   install_or_upgrade_package "$package"
