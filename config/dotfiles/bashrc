@@ -17,7 +17,7 @@ export PROMPT_COMMAND='__git_ps1 "boss:\w" "\\\$ "'
 export FZF_DEFAULT_OPTS="--height 40% --reverse --border"
 export FZF_CTRL_T_OPTS="--preview 'cat {} | head -100' --preview-window right"
 
-readonly CONFIG_WORK="$HOME/Box/Personal/dotfiles/airbnb"
+readonly CONFIG_WORK="$HOME/Box/dotfiles/airbnb"
 readonly CONFIG_HOME="$HOME/Dropbox/mbp-retina/dotfiles/home"
 
 [[ -r ~/.fzf.bash ]] && source ~/.fzf.bash
