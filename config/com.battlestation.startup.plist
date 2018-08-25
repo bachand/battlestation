@@ -5,7 +5,7 @@
     <key>Label</key>
     <string>com.battlestation.startup</string>
     <key>Program</key>
-    <string>/Users/michael/repos/battlestation/src/startup</string>
+    <string>/Users/michael/repos/battlestation/script/startup</string>
     <key>RunAtLoad</key>
     <true/>
  </dict>
