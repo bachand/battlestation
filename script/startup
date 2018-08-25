@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# Any easy way to test when the daemon runs...
+date >> ~/test_launch_daemon.txt
