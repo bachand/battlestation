@@ -8,3 +8,9 @@
 
 ### Paths to sync
 - `$HOME/.ssh`
+
+### Automate installing Launch Daemon
+The manual steps are:
+
+1. `sudo cp /path/to/com.battlestation.startup.plist /Library/LaunchDaemons/`
+2. ` sudo launchctl load -w /Library/LaunchDaemons/com.battlestation.startup.plist`
