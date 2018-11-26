@@ -5,5 +5,15 @@
   "files.trimTrailingWhitespace": true,
   "window.zoomLevel": 1,
   "editor.wordWrap": "bounded",
-  "editor.wordWrapColumn": 100
+  "editor.wordWrapColumn": 100,
+  "files.associations": {
+    ".buckconfig": "ini",
+    "*.bzl": "python",
+    "*.pp": "ruby",
+    "Appfile": "ruby",
+    "BUCK": "python",
+    "Fastfile": "ruby",
+    "bash_profile": "shellscript",
+    "bashrc": "shellscript",
+  }
 }
