@@ -5,6 +5,7 @@
 - Add home folder to Finder sidebar
 - Add https://youtu.be/St2jUxnCVKI?t=29s
 - Set up `locate` database: `sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist`
+- Install [San Francisco fonts](https://developer.apple.com/fonts/)
 
 ### Paths to sync
 - `$HOME/.ssh`
