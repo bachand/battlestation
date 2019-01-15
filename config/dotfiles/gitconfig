@@ -20,8 +20,6 @@
   precomposeunicode = true
 [push]
   default = current
-[rerere]
-  enabled = true
 [user]
   name = Michael Bachand
 [credential]
