@@ -112,7 +112,7 @@ install_or_upgrade_package() {
   fi
 }
 
-packages=( git ag fzf rbenv youtube-dl exiftool cloc handbrake ios-sim imagemagick )
+packages=( git ag fzf rbenv youtube-dl exiftool cloc handbrake ios-sim imagemagick python terminal-notifier )
 for package in "${packages[@]}"
 do
   install_or_upgrade_package "$package"
