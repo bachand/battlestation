@@ -10,6 +10,7 @@
   rs = reset
   p = push
   pf = push --force-with-lease
+  pnv = push --no-verify
   # Rebase the current branch over origin/master
   rbm = pull --rebase origin master
 [color]
