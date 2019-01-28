@@ -13,6 +13,7 @@
   pnv = push --no-verify
   # Rebase the current branch over origin/master
   rbm = pull --rebase origin master
+  superclean = git clean -fxd
 [color]
   ui = auto
 [core]
