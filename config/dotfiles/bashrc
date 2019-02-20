@@ -34,6 +34,13 @@ else
   echo "$(tput setaf 1)Can't find a home or work config file$(tput sgr 0)"
 fi
 
+#######################################
+# Executes the specified command. Alerts the user when the command completes.
+# Arguments:
+#   Command to execute
+# Returns:
+#   None
+#######################################
 notify() {
   local title="Succeeded"
   # Capture the parameter list for later display.
