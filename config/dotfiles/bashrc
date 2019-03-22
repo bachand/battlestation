@@ -62,3 +62,10 @@ notify() {
   # Notify the user that the command is done.
   terminal-notifier -title "$title" -message "$message" -sound "default" -ignoreDnD
 }
+
+# Sets the upstream of the current `git` branch to `"origin/<branch>"`.
+setupstream() {
+  local branch_name="$(git rev-parse --abbrev-ref HEAD)"
+  command="git branch --set-upstream-to=origin/$branch_name $branch_name"
+  eval $command
+}
