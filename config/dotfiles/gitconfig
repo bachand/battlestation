@@ -39,3 +39,5 @@
   prompt = false
 [diff]
   tool = Kaleidoscope
+[rerere]
+  enabled = false
