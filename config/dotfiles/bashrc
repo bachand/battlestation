@@ -22,10 +22,6 @@ readonly CONFIG_HOME="$HOME/Dropbox/mbp-retina/dotfiles/home"
 
 [[ -r ~/.fzf.bash ]] && source ~/.fzf.bash
 
-source '/usr/local/etc/bash_completion.d/git-completion.bash'
-source '/usr/local/etc/bash_completion.d/git-prompt.sh'
-source "$PARENT_DIR/aliases.bash"
-
 if [[ -f "$CONFIG_WORK" ]]; then
   source "$CONFIG_WORK"
 elif [[ -f "$CONFIG_HOME" ]]; then
@@ -33,6 +29,10 @@ elif [[ -f "$CONFIG_HOME" ]]; then
 else
   echo "$(tput setaf 1)Can't find a home or work config file$(tput sgr 0)"
 fi
+
+source '/usr/local/etc/bash_completion.d/git-completion.bash'
+source '/usr/local/etc/bash_completion.d/git-prompt.sh'
+source "$PARENT_DIR/aliases.bash"
 
 #######################################
 # Executes the specified command. Alerts the user when the command completes.
