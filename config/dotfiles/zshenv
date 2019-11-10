@@ -1,9 +1,10 @@
 #######################################
 # Figures out the directory of the file in which it is invoked.
 # Credit goes to http://www.ostricher.com/2014/10/the-right-way-to-get-the-directory-of-a-bash-script/
+# Adapted to Z shell with the help of https://stackoverflow.com/questions/9901210/bash-source0-equivalent-in-zsh
 #######################################
 get_script_dir() {
-  local source="${BASH_SOURCE[0]}"
+  local source="${(%):-%x}"
   # While $source is a symlink, resolve it
   while [[ -h "$source" ]]; do
     local dir="$( cd -P "$( dirname "$source" )" && pwd )"
