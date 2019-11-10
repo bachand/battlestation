@@ -1,3 +1,5 @@
+#! /usr/bin/env zsh
+
 #######################################
 # Figures out the directory of the file in which it is invoked.
 # Credit goes to http://www.ostricher.com/2014/10/the-right-way-to-get-the-directory-of-a-bash-script/
@@ -18,3 +20,5 @@ get_script_dir() {
 
 readonly PARENT_DIR="$(get_script_dir)"
 readonly REPO_ROOT="$PARENT_DIR/../.."
+
+source "$PARENT_DIR/../../lib/functions.zsh"
