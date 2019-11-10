@@ -24,6 +24,7 @@ readonly REPO_ROOT="$PARENT_DIR/../.."
 source "$PARENT_DIR/../../lib/functions.zsh"
 
 # Homebrew
+path+="/usr/local/bin"
 path+="/usr/local/sbin"
 # Python
 path+="$HOME/Library/Python/3.6/bin"
@@ -40,3 +41,5 @@ typeset -U PATH path
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+eval "$(rbenv init -)"
