@@ -19,3 +19,4 @@ The manual steps (for Michael's setup) are:
 ### Z shell
 
 - [`cd_recent()`](https://gitlab.com/GeorgeLyon/rennaizshsance/blob/master/plugins/cd_recent/cd_recent.plugin.zsh)
+- [`select_one()`](https://gist.github.com/GeorgeLyon/325c1404ed0139a08dd048fa7f438477)
