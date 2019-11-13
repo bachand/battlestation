@@ -15,3 +15,7 @@ The manual steps (for Michael's setup) are:
 
 1. `cp /Users/michael/repos/battlestation/config/com.battlestation.startup.plist ~/Library/LaunchAgents/`
 2. `launchctl load -w ~/Library/LaunchAgents/com.battlestation.startup.plist`
+
+### Z shell
+
+- [`cd_recent()`](https://gitlab.com/GeorgeLyon/rennaizshsance/blob/master/plugins/cd_recent/cd_recent.plugin.zsh)
