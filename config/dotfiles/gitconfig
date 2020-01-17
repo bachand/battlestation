@@ -19,11 +19,13 @@
 [core]
   editor = code --wait
   excludesfile = ~/.gitignore_global
-  precomposeunicode = true
+	precomposeunicode = true
+	sparseCheckout = true
 [push]
-  default = current
+	default = current
 [user]
   name = Michael Bachand
+	email = michael.bachand@airbnb.com
 [credential]
   helper = osxkeychain
 [mergetool "Kaleidoscope"]
@@ -40,4 +42,4 @@
 [diff]
   tool = Kaleidoscope
 [rerere]
-  enabled = false
+	enabled = true

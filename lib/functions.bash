@@ -1,6 +1,16 @@
 #!/bin/bash
 
 #######################################
+# Opens a link in the iOS simulator.
+#
+# Arguments:
+#   Link string, e.g. "https://www.airbnb.com/rooms/23001080"
+#######################################
+odl() {
+  xcrun simctl openurl booted $1
+}
+
+#######################################
 # Checks if an excutable exists (on any shell).
 # Credit goes to https://coderwall.com/p/vpvvna/check-if-given-executable-exists-all-shells
 #
