@@ -1,3 +1,15 @@
 #! /usr/bin/env zsh
 
+#
+# For more information on history, see https://wiki.gentoo.org/wiki/Zsh/Guide#History and
+# https://unix.stackexchange.com/a/273863.
+#
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=$HISTSIZE
+# Delete old recorded entry if new entry is a duplicate.
+setopt HIST_IGNORE_ALL_DUPS
+# Don't record an entry starting with a space.
+setopt HIST_IGNORE_SPACE
+
 # TODO: this is what I need to fill out next
