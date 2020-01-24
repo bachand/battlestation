@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 #######################################
 # Opens a link in the iOS simulator.
