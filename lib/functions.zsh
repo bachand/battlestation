@@ -1,19 +1,13 @@
 #!/bin/bash
 
 #######################################
-# Checks if an excutable exists (on any shell).
-# Credit goes to https://coderwall.com/p/vpvvna/check-if-given-executable-exists-all-shells
+# Opens a link in the iOS simulator.
 #
 # Arguments:
-#   Executable name
+#   Link string, e.g. "https://www.airbnb.com/rooms/23001080"
 #######################################
-exists() {
-  if [[ "$#" -ne 1 ]]; then
-    >&2 echo "usage: exists <executable_name>"
-    return 1
-  fi
-
-  type -t "$1" > /dev/null 2>&1
+odl() {
+  xcrun simctl openurl booted $1
 }
 
 #######################################
