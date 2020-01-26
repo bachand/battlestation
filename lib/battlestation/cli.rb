@@ -83,6 +83,20 @@ fi
     end
 
     def install_packages(current_dirname)
+      packages = [
+        'git',
+        'ag',
+        'fzf',
+        'rbenv',
+        'youtube-dl',
+        'exiftool',
+        'cloc',
+        'handbrake',
+        'ios-sim',
+        'imagemagick',
+        'python',
+        'terminal-notifier',
+      ]
       # Slowly bringing code into ruby from the monolithic setup script.
       system 'bash', '-c', %{
 #######################################
@@ -112,7 +126,7 @@ install_or_upgrade_package() {
   fi
 }
 
-packages=( git ag fzf rbenv youtube-dl exiftool cloc handbrake ios-sim imagemagick python terminal-notifier )
+packages=( #{packages.join(" ")} )
 for package in "${packages[@]}"
 do
   install_or_upgrade_package "$package"
