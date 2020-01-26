@@ -89,6 +89,7 @@ fi
         'exiftool',
         'fzf',
         'git',
+        'gpg',
         'handbrake',
         'imagemagick',
         'ios-sim',
