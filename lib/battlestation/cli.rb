@@ -84,18 +84,18 @@ fi
 
     def install_packages(current_dirname)
       packages = [
-        'git',
         'ag',
-        'fzf',
-        'rbenv',
-        'youtube-dl',
-        'exiftool',
         'cloc',
+        'exiftool',
+        'fzf',
+        'git',
         'handbrake',
-        'ios-sim',
         'imagemagick',
+        'ios-sim',
         'python',
+        'rbenv',
         'terminal-notifier',
+        'youtube-dl',
       ]
       # Slowly bringing code into ruby from the monolithic setup script.
       system 'bash', '-c', %{
