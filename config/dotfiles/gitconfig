@@ -25,7 +25,6 @@
 	default = current
 [user]
   name = Michael Bachand
-	email = michael.bachand@airbnb.com
 [credential]
   helper = osxkeychain
 [mergetool "Kaleidoscope"]
