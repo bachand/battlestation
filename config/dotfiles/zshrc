@@ -19,6 +19,8 @@ export GREP_OPTIONS='--color=auto'
 
 ## Prompt
 
+# For more information on configuring the prompt, see https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/
+
 ### Leading prompt
 
 PROMPT='boss:%~ '
