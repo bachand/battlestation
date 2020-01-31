@@ -15,4 +15,8 @@ setopt HIST_IGNORE_SPACE
 # Grep
 export GREP_OPTIONS='--color=auto'
 
+#
+# Prompt
+PROMPT='boss:%~ '
+
 # TODO: this is what I need to fill out next
