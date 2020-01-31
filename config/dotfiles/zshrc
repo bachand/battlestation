@@ -1,8 +1,10 @@
 #! /usr/bin/env zsh
 
-#
+## History
+
 # For more information on history, see https://wiki.gentoo.org/wiki/Zsh/Guide#History and
 # https://unix.stackexchange.com/a/273863.
+
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
 SAVEHIST=$HISTSIZE
@@ -11,12 +13,24 @@ setopt HIST_IGNORE_ALL_DUPS
 # Don't record an entry starting with a space.
 setopt HIST_IGNORE_SPACE
 
-#
-# Grep
+## Grep
+
 export GREP_OPTIONS='--color=auto'
 
-#
-# Prompt
+## Prompt
+
+### Leading prompt
+
 PROMPT='boss:%~ '
+
+### Trailing prompt
+
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
+RPROMPT=\$vcs_info_msg_0_
+zstyle ':vcs_info:git:*' formats '%F{34}(%b)%f'
+zstyle ':vcs_info:*' enable git
 
 # TODO: this is what I need to fill out next
