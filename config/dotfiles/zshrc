@@ -55,4 +55,9 @@ else
   echo "$(tput setaf 1)Can't find a home or work config file$(tput sgr 0)"
 fi
 
+## Completions
+
+# I'm not sure this is strictly necessary but I don't think it can hurt.
+autoload -Uz compinit && compinit
+
 # TODO: this is what I need to fill out next
