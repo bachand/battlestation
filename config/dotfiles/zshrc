@@ -1,0 +1,96 @@
+#! /usr/bin/env zsh
+
+## History
+
+# For more information on history, see https://wiki.gentoo.org/wiki/Zsh/Guide#History and
+# https://unix.stackexchange.com/a/273863.
+
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=$HISTSIZE
+# Delete old recorded entry if new entry is a duplicate.
+setopt HIST_IGNORE_ALL_DUPS
+# Don't record an entry starting with a space.
+setopt HIST_IGNORE_SPACE
+
+## Grep
+
+export GREP_OPTIONS='--color=auto'
+
+## Prompt
+
+# For more information on configuring the prompt, see https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/ and https://arjanvandergaag.nl/blog/customize-zsh-prompt-with-vcs-info.html.
+
+### Leading prompt
+
+PROMPT='boss:%~ '
+
+### Trailing prompt
+
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
+RPROMPT=\$vcs_info_msg_0_
+zstyle ':vcs_info:git:*' formats '%F{red}%c%u%f %a%F{green}%b%f'
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' enable git
+
+## fzf
+
+export FZF_DEFAULT_OPTS="--height 40% --reverse --border"
+export FZF_CTRL_T_OPTS="--preview 'cat {} | head -100' --preview-window right"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+## Machine-specific configuration
+
+readonly CONFIG_WORK="$HOME/Box/dotfiles/airbnb"
+readonly CONFIG_HOME="$HOME/Dropbox/dotfiles/home"
+
+if [[ -f "$CONFIG_WORK" ]]; then
+  source "$CONFIG_WORK"
+elif [[ -f "$CONFIG_HOME" ]]; then
+  source "$CONFIG_HOME"
+else
+  echo "$(tput setaf 1)Can't find a home or work config file$(tput sgr 0)"
+fi
+
+## Completions
+
+# I'm not sure this is strictly necessary but I don't think it can hurt.
+autoload -Uz compinit && compinit
+
+## Aliases
+
+source "$PARENT_DIR/aliases.zsh"
+
+## Functions
+
+#######################################
+# Executes the specified command. Alerts the user when the command completes.
+# Arguments:
+#   Command to execute
+# Returns:
+#   None
+#######################################
+notify() {
+  local title="Succeeded"
+  # Capture the parameter list for later display.
+  local message=$@
+
+  if [[ $# -eq 0 ]]; then
+    return
+  fi
+
+  # Execute the parameters.
+  eval $@
+
+  # Get the exit status of the last-run command.
+  local retVal=$?
+  if [[ $retVal -ne 0 ]]; then
+    title="Failed"
+  fi
+
+  # Notify the user that the command is done.
+  terminal-notifier -title "$title" -message "$message" -sound "default" -ignoreDnD
+}
