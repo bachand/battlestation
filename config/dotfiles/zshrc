@@ -60,6 +60,12 @@ fi
 # I'm not sure this is strictly necessary but I don't think it can hurt.
 autoload -Uz compinit && compinit
 
+## Aliases
+
+source "$PARENT_DIR/aliases.zsh"
+
+## Functions
+
 #######################################
 # Executes the specified command. Alerts the user when the command completes.
 # Arguments:
