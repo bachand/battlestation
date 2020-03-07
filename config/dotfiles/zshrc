@@ -60,4 +60,31 @@ fi
 # I'm not sure this is strictly necessary but I don't think it can hurt.
 autoload -Uz compinit && compinit
 
-# TODO: this is what I need to fill out next
+#######################################
+# Executes the specified command. Alerts the user when the command completes.
+# Arguments:
+#   Command to execute
+# Returns:
+#   None
+#######################################
+notify() {
+  local title="Succeeded"
+  # Capture the parameter list for later display.
+  local message=$@
+
+  if [[ $# -eq 0 ]]; then
+    return
+  fi
+
+  # Execute the parameters.
+  eval $@
+
+  # Get the exit status of the last-run command.
+  local retVal=$?
+  if [[ $retVal -ne 0 ]]; then
+    title="Failed"
+  fi
+
+  # Notify the user that the command is done.
+  terminal-notifier -title "$title" -message "$message" -sound "default" -ignoreDnD
+}
