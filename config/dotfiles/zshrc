@@ -42,6 +42,21 @@ export FZF_DEFAULT_OPTS="--height 40% --reverse --border"
 export FZF_CTRL_T_OPTS="--preview 'cat {} | head -100' --preview-window right"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+## NVM
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+## Rbenv
+
+# Set up Rbenv, if it exists.
+if which -s rbenv > /dev/null
+then
+  path=("$HOME/.rbenv/shims" $path)
+  eval "$(rbenv init -)"
+fi
+
 ## Machine-specific configuration
 
 readonly CONFIG_WORK="$HOME/Box/dotfiles/airbnb"
