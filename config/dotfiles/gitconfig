@@ -17,7 +17,6 @@
 [color]
   ui = auto
 [core]
-  editor = code --wait
   excludesfile = ~/.gitignore_global
 	precomposeunicode = true
 	sparseCheckout = true
