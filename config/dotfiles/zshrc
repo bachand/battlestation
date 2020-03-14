@@ -75,6 +75,12 @@ fi
 # I'm not sure this is strictly necessary but I don't think it can hurt.
 autoload -Uz compinit && compinit
 
+## Word style
+
+# Treat slashes as word boundaries.
+autoload -Uz select-word-style
+select-word-style bash
+
 ## Aliases
 
 source "$PARENT_DIR/aliases.zsh"
