@@ -2,12 +2,6 @@
 # Relatives target paths are relative to $HOME. Relative source paths are relative to the root of
 # this repo. Absolute paths are not modified.
 ---
-- target_path: .bashrc
-  source_path: dotfiles/bashrc
-
-- target_path: .bash_profile
-  source_path: dotfiles/bash_profile
-
 - target_path: .gitconfig
   source_path: dotfiles/gitconfig
 

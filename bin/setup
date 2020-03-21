@@ -90,8 +90,6 @@ install_dropbox
 
 setup_fzf
 
-create_link "$HOME/.bashrc" "$CONFIG_DIR/dotfiles/bashrc"
-create_link "$HOME/.bash_profile" "$CONFIG_DIR/dotfiles/bash_profile"
 create_link "$HOME/.zshenv" "$CONFIG_DIR/dotfiles/zshenv"
 create_link "$HOME/.zshrc" "$CONFIG_DIR/dotfiles/zshrc"
 create_link "$HOME/.gitconfig" "$CONFIG_DIR/dotfiles/gitconfig"
