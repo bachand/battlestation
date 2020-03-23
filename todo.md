@@ -6,6 +6,7 @@
 - Add https://youtu.be/St2jUxnCVKI?t=29s
 - Set up `locate` database: `sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist`
 - Install [San Francisco fonts](https://developer.apple.com/fonts/)
+- Set up `xfuncname` to improve `git grep -p`. See [Dave Lee's](https://github.com/kastiglione/dotfiles/blob/e1d171dbfbf378483f35d1eff783f2de1852b04f/gitconfig) as an example.
 
 ### Paths to sync
 - `$HOME/.ssh`
