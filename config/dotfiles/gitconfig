@@ -21,6 +21,7 @@
 	precomposeunicode = true
 	sparseCheckout = true
 	ignorecase = false
+	untrackedCache = true
 [push]
 	default = current
 [user]
