@@ -37,3 +37,12 @@ path+="/Applications/CMake.app/Contents/bin"
 
 # Keep only the first occurence of each duplicated value.
 typeset -U PATH path
+
+## Rbenv
+
+# Set up Rbenv, if it exists.
+if which -s rbenv > /dev/null
+then
+  path=("$HOME/.rbenv/shims" $path)
+  eval "$(rbenv init -)"
+fi
