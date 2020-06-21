@@ -7,8 +7,10 @@ alias ber='bundle exec rake'
 alias ytdl='youtube-dl'
 
 alias ls='ls -alG'
-alias sn='code'
 alias cdr="cd $HOME/repos"
+
+alias sn='code'
+alias v='vim'
 
 alias cloudformation='aws cloudformation'
 alias s3='aws s3'
