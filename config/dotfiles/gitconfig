@@ -42,4 +42,4 @@
 [diff]
   tool = Kaleidoscope
 [rerere]
-	enabled = true
+	enabled = false
