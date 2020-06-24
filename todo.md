@@ -7,6 +7,7 @@
 - Set up `locate` database: `sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist`
 - Install [San Francisco fonts](https://developer.apple.com/fonts/)
 - Set up `xfuncname` to improve `git grep -p`. See [Dave Lee's](https://github.com/kastiglione/dotfiles/blob/e1d171dbfbf378483f35d1eff783f2de1852b04f/gitconfig) as an example.
+- Support `main` or `master` as primary branch (see Dan's [solution](https://github.com/dfed/MagCat/commit/0a8e56087f417e2c47c626f5a1fdf66ed5be99f5)).
 
 ### Paths to sync
 - `$HOME/.ssh`
