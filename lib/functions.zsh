@@ -65,3 +65,13 @@ dp() {
 
   sed -i '' "/$pattern/d" "$file_path"
 }
+
+#######################################
+# Starts an ongoing task to monitor thermal throttling.
+#
+# Arguments:
+#   None
+#######################################
+thermcheck() {
+  pmset -g thermlog
+}
