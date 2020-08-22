@@ -19,4 +19,5 @@
   "python.linting.enabled": false,
   "python.pythonPath": "/usr/local/opt/python@2/bin/python2.7",
   "files.autoSave": "onWindowChange",
+  "workbench.colorTheme": "Visual Studio Dark",
 }
