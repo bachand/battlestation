@@ -67,7 +67,8 @@ if [[ $theme_search_result -ne 0 ]]; then
   #{plist_buddy} -c "Add :'Window Settings':'#{theme}' dict {}" #{terminal_preferences}
   # Merge in the settings
   #{plist_buddy} -c "Merge #{theme_file} :'Window Settings':'#{theme}'" #{terminal_preferences}
-  # Set it as the defaults
+
+  echo "Setting theme as default: #{theme}"
   #{plist_buddy} -c "Set :'Default Window Settings' '#{theme}'" #{terminal_preferences}
   #{plist_buddy} -c "Set :'Startup Window Settings' '#{theme}'" #{terminal_preferences}
 fi
