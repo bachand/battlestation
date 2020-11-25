@@ -49,7 +49,7 @@ module Battlestation
 
     private
 
-    # Installs my default Terminal theme and sets it as the default.
+    # Installs my Terminal theme and sets it as the default.
     # @param current_dirname [String] The absolute path to the directory where this script will
     # execute.
     def install_terminal_theme(current_dirname)
