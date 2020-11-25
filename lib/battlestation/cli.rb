@@ -18,6 +18,8 @@ module Battlestation
     def run(args = ARGV)
       current_dirname = Pathname.new(__FILE__).dirname
 
+      install_terminal_theme(current_dirname)
+
       configure_xcode()
 
       run_legacy_setup_script(current_dirname)
@@ -46,6 +48,31 @@ module Battlestation
     end
 
     private
+
+    # Installs my default Terminal theme and sets it as the default.
+    # @param current_dirname [String] The absolute path to the directory where this script will
+    # execute.
+    def install_terminal_theme(current_dirname)
+      plist_buddy='/usr/libexec/PlistBuddy'
+      terminal_preferences='$HOME/Library/Preferences/com.apple.Terminal.plist'
+      theme='Balthazar 2000'
+      theme_file = File.join(current_dirname, '../../config/terminal_theme.terminal')
+
+      system 'bash', '-c', %{
+#{plist_buddy} -c "Print :'Window Settings':'#{theme}'" #{terminal_preferences} >/dev/null 2>&1
+theme_search_result=$?
+if [[ $theme_search_result -ne 0 ]]; then
+  echo "Adding theme to Terminal: #{theme}"
+  # Create a new entry in the dictionary of profiles
+  #{plist_buddy} -c "Add :'Window Settings':'#{theme}' dict {}" #{terminal_preferences}
+  # Merge in the settings
+  #{plist_buddy} -c "Merge #{theme_file} :'Window Settings':'#{theme}'" #{terminal_preferences}
+  # Set it as the defaults
+  #{plist_buddy} -c "Set :'Default Window Settings' '#{theme}'" #{terminal_preferences}
+  #{plist_buddy} -c "Set :'Startup Window Settings' '#{theme}'" #{terminal_preferences}
+fi
+}
+    end
 
     def configure_xcode
       system 'bash', '-c', %{
