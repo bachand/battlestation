@@ -7,8 +7,7 @@ Spoiler alert: my actual battlestation is much less cool than any of these :stuc
 ## Setting up
 
 1. Clone the repo
-2. Double click `terminal_theme.terminal` to add to the list of available themes, and then set is as the default in the Terminals preferences.
-3. Run the setup command:
+2. Run the setup command:
 ```shell
 $ cd $REPO_DIR
 $ ./bin/battlestation setup
