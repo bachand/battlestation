@@ -43,3 +43,5 @@
   tool = Kaleidoscope
 [rerere]
 	enabled = false
+[pull]
+	ff = only
