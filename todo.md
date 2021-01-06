@@ -8,6 +8,7 @@
 - Install [San Francisco fonts](https://developer.apple.com/fonts/)
 - Set up `xfuncname` to improve `git grep -p`. See [Dave Lee's](https://github.com/kastiglione/dotfiles/blob/e1d171dbfbf378483f35d1eff783f2de1852b04f/gitconfig) as an example.
 - Support `main` or `master` as primary branch (see Dan's [solution](https://github.com/dfed/MagCat/commit/0a8e56087f417e2c47c626f5a1fdf66ed5be99f5)).
+- Hookup Git `fsmonitor` with [V2 Watchman integration](https://github.com/git/git/blob/master/t/t7519/fsmonitor-watchman-v2).
 
 ### Paths to sync
 - `$HOME/.ssh`
