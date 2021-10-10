@@ -1,15 +1,14 @@
 # My Battlestation
 
-Inspired by https://www.reddit.com/r/battlestations/.
-
-Spoiler alert: my actual battlestation is much less cool than any of these :stuck_out_tongue:
+Inspired by https://www.reddit.com/r/battlestations/. Spoiler alert: my actual battlestation is much less cool than any of these :stuck_out_tongue:
 
 ## Setting up
 
-1. Clone the repo
-2. Run the setup command:
+Clone the repo and run the setup command.
+
 ```shell
-$ cd $REPO_DIR
+$ git clone https://github.com/bachand/battlestation.git
+$ cd battlestation
 $ ./bin/battlestation setup
 ```
 
