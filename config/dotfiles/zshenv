@@ -24,6 +24,9 @@ readonly REPO_ROOT="$PARENT_DIR/../.."
 source "$PARENT_DIR/../../lib/functions.zsh"
 
 # Homebrew
+# TODO: Homebrew is installed into different locations for Intel and Apple Silicon Macs. For the
+# medium term we will need to check which type of Mac we are and then we will want to evaluate the
+# Homebrew `shellenv` command.
 path+="/usr/local/bin"
 path+="/usr/local/sbin"
 # Python
