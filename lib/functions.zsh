@@ -75,3 +75,17 @@ dp() {
 thermcheck() {
   pmset -g thermlog
 }
+
+#######################################
+# Determines if the current machine is a Silicon Mac.
+#
+# Arguments:
+#   None
+# Returns:
+#   0 if the current machine is a Silicon Mac; otherwise, non-zero.
+#######################################
+is_silicon_mac() {
+  simplified_processor_name="$(uname -p)"
+  [[ "$simplified_processor_name" == "arm" ]] && return
+  false
+}
