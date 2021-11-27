@@ -11,15 +11,15 @@
   p = push
   pf = push --force-with-lease
   pnv = push --no-verify
-  # Rebase the current branch over origin/master
-  rbm = pull --rebase origin master
+  # Rebase the current branch over where it branched from master.
+  # TODO: Change to main.
+  rbm = rebase -i $(git merge-base HEAD origin/master)
   superclean = clean -fxd
 [color]
   ui = auto
 [core]
   excludesfile = ~/.gitignore_global
 	precomposeunicode = true
-	sparseCheckout = true
 	ignorecase = false
 	untrackedCache = true
 [push]
@@ -41,7 +41,10 @@
   prompt = false
 [diff]
   tool = Kaleidoscope
+  renameLimit = 10000
 [rerere]
 	enabled = false
 [pull]
 	ff = only
+[url "ssh://git@git.musta.ch/"]
+	insteadOf = https://git.musta.ch/
