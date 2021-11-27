@@ -11,9 +11,6 @@
   p = push
   pf = push --force-with-lease
   pnv = push --no-verify
-  # Rebase the current branch over where it branched from master.
-  # TODO: Change to main.
-  rbm = rebase -i $(git merge-base HEAD origin/master)
   superclean = clean -fxd
 [color]
   ui = auto
