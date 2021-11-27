@@ -19,7 +19,6 @@
 [core]
   excludesfile = ~/.gitignore_global
 	precomposeunicode = true
-	sparseCheckout = true
 	ignorecase = false
 	untrackedCache = true
 [push]
@@ -41,7 +40,10 @@
   prompt = false
 [diff]
   tool = Kaleidoscope
+  renameLimit = 10000
 [rerere]
 	enabled = false
 [pull]
 	ff = only
+[url "ssh://git@git.musta.ch/"]
+	insteadOf = https://git.musta.ch/
