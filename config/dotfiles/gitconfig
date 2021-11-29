@@ -12,6 +12,8 @@
   pf = push --force-with-lease
   pnv = push --no-verify
   superclean = clean -fxd
+  # Rebase the current branch over origin/master
+  rbm = pull --rebase origin master
 [color]
   ui = auto
 [core]
