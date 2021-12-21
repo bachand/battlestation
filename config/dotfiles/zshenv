@@ -19,7 +19,7 @@ get_script_dir() {
 }
 
 readonly PARENT_DIR="$(get_script_dir)"
-readonly REPO_ROOT="$PARENT_DIR/../.."
+readonly BATTLESTATION_ROOT="$PARENT_DIR/../.."
 
 source "$PARENT_DIR/../../lib/functions.zsh"
 
@@ -32,7 +32,7 @@ path+="/usr/local/sbin"
 # Python
 path+="$HOME/Library/Python/3.6/bin"
 # https://github.com/bachand/battlestation
-path+="$REPO_ROOT/bin:$REPO_ROOT/script"
+path+="$BATTLESTATION_ROOT/bin:$BATTLESTATION_ROOT/script"
 # VS Code
 path+="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 # https://github.com/apple/swift
