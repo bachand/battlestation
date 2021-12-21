@@ -59,7 +59,7 @@ fi
 
 ## Machine-specific configuration
 
-readonly CONFIG_WORK="$HOME/Box/dotfiles/airbnb"
+readonly CONFIG_WORK="$HOME/Library/CloudStorage/Box-Box/dotfiles/airbnb"
 readonly CONFIG_HOME="$HOME/Dropbox/dotfiles/home"
 
 if [[ -f "$CONFIG_WORK" ]]; then
