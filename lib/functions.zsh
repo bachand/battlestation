@@ -77,12 +77,12 @@ thermcheck() {
 }
 
 #######################################
-# Determines if the current machine is a Silicon Mac.
+# Determines if the current machine is an Apple Silicon Mac.
 #
 # Arguments:
 #   None
 # Returns:
-#   0 if the current machine is a Silicon Mac; otherwise, non-zero.
+#   0 if the current machine is an Apple Silicon Mac; otherwise, non-zero.
 #######################################
 is_silicon_mac() {
   simplified_processor_name="$(uname -p)"
