@@ -30,7 +30,9 @@ module Battlestation
 
       install_packages(current_dirname)
 
-      verify_rbenv
+      configure_fzf()
+
+      verify_rbenv()
 
       ruby_version_path = File.join current_dirname, '../../.ruby-version'
       ruby_version = (File.read ruby_version_path).strip
@@ -167,6 +169,17 @@ done
     def verify_rbenv
       system 'bash', '-c', %{
 curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
+      }
+    end
+
+    # Runs the fzf install script in order to install key bindings and shell completion.
+    def configure_fzf
+      system 'bash', '-c', %{
+/usr/local/opt/fzf/install --key-bindings --completion --no-update-rc >/dev/null 2>&1
+if [[ "$?" -ne 0 ]]; then
+  echo_error 'Failed to install fzf'
+  exit 1
+fi
       }
     end
 
