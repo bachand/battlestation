@@ -175,7 +175,7 @@ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor 
     # Runs the fzf install script in order to install key bindings and shell completion.
     def configure_fzf
       system 'bash', '-c', %{
-#{homebrew_prefix}/fzf/install --key-bindings --completion --no-update-rc >/dev/null 2>&1
+#{homebrew_prefix}/opt/fzf/install --key-bindings --completion --no-update-rc >/dev/null 2>&1
 if [[ "$?" -ne 0 ]]; then
   echo 'Failed to install fzf'
   exit 1
