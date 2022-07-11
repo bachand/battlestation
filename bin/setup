@@ -60,18 +60,6 @@ create_link() {
   fi
 }
 
-#######################################
-# Runs the fzf install script in order to install key bindings and shell completion. Exits with an
-# error code of 1 if that script fails.
-#######################################
-setup_fzf() {
-  /usr/local/opt/fzf/install --key-bindings --completion --no-update-rc >/dev/null 2>&1
-  if [[ "$?" -ne 0 ]]; then
-    echo_error 'Failed to install fzf'
-    exit 1
-  fi
-}
-
 install_dropbox() {
   echo "todo" > /dev/null
 }
@@ -88,8 +76,6 @@ install_homebrew
 brew update
 
 install_dropbox
-
-setup_fzf
 
 create_link "$HOME/.zshenv" "$CONFIG_DIR/dotfiles/zshenv"
 create_link "$HOME/.zshrc" "$CONFIG_DIR/dotfiles/zshrc"
