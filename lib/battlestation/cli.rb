@@ -149,12 +149,12 @@ echo_info() {
 #   Name of package
 #######################################
 install_or_upgrade_package() {
-  if ! brew list "$1" >/dev/null 2>&1; then
+  if ! #{full_homebrew_path} list "$1" >/dev/null 2>&1; then
     echo_info "Installing $1 via Homebrew"
-    brew install "$1"
+    #{full_homebrew_path} install "$1"
   else
     # TODO: find a way to only update if needed to prevent errors in console.
-    brew upgrade "$1"
+    #{full_homebrew_path} upgrade "$1"
   fi
 }
 
@@ -175,7 +175,7 @@ curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor 
     # Runs the fzf install script in order to install key bindings and shell completion.
     def configure_fzf
       system 'bash', '-c', %{
-/usr/local/opt/fzf/install --key-bindings --completion --no-update-rc >/dev/null 2>&1
+#{homebrew_prefix}/fzf/install --key-bindings --completion --no-update-rc >/dev/null 2>&1
 if [[ "$?" -ne 0 ]]; then
   echo_error 'Failed to install fzf'
   exit 1
@@ -216,6 +216,30 @@ gem install bundler
 cd "#{current_dirname}/../../"
 bundle install
       }
+    end
+
+    # As part of this setup we install Homebrew and set up our dotfiles. Accordingly, a naked `brew`
+    # command may not yet work. We can use the prefix to create a fully qualified path to the
+    # Homebrew binary.
+    # @returns [String] the prefix for the Homebrew installation directory.
+    # @raises [RuntimeError] if Homebrew is not installed.
+    def homebrew_prefix
+      apple_silicon_prefix = '/opt/homebrew'
+      intel_prefix = '/usr/local'
+      binary_suffix = 'bin/brew'
+      if File.exist? File.join(apple_silicon_prefix, binary_suffix)
+        return apple_silicon_prefix
+      elsif File.exist? File.join(intel_prefix, binary_suffix)
+        return intel_prefix
+      else
+        raise 'Homebrew is not installed'
+      end
+    end
+
+    # @returns [String] the fully qualified path to the Homebrew binary.
+    # @raises [RuntimeError] if Homebrew is not installed.
+    def full_homebrew_path
+      File.join(homebrew_prefix, 'bin/brew')
     end
   end
 end
