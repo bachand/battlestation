@@ -189,7 +189,6 @@ fi
 
       unless rbenv_versions_string.include? version
         system 'bash', '-c', %{
-#{homebrew_prefix}/bin/rbenv init
 eval "$(#{homebrew_prefix}/bin/rbenv init -)"
 
 #{homebrew_prefix}/bin/rbenv install #{version}
@@ -199,7 +198,6 @@ eval "$(#{homebrew_prefix}/bin/rbenv init -)"
 
     def set_ruby_version(version)
       system 'bash', '-c', %{
-#{homebrew_prefix}/bin/rbenv init
 eval "$(#{homebrew_prefix}/bin/rbenv init -)"
 
 #{homebrew_prefix}/bin/rbenv global #{version}
@@ -209,7 +207,6 @@ eval "$(#{homebrew_prefix}/bin/rbenv init -)"
 
     def install_gems(current_dirname)
       system 'bash', '-c', %{
-#{homebrew_prefix}/bin/rbenv init
 eval "$(#{homebrew_prefix}/bin/rbenv init -)"
 
 gem install bundler
