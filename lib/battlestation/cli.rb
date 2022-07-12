@@ -34,8 +34,6 @@ module Battlestation
 
       configure_fzf()
 
-      verify_rbenv()
-
       ruby_version_path = File.join current_dirname, '../../.ruby-version'
       ruby_version = (File.read ruby_version_path).strip
 
@@ -171,13 +169,6 @@ for package in "${packages[@]}"
 do
   install_or_upgrade_package "$package"
 done
-      }
-    end
-
-    def verify_rbenv
-      system 'bash', '-c', %{
-eval "$(#{homebrew_prefix}/bin/rbenv init -)"
-curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | bash
       }
     end
 
