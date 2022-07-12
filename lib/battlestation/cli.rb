@@ -168,6 +168,7 @@ done
 
     def verify_rbenv
       system 'bash', '-c', %{
+eval "$(#{homebrew_prefix}/bin/rbenv init -)"
 curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | bash
       }
     end
