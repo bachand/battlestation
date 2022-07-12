@@ -198,6 +198,8 @@ fi
 
       unless rbenv_versions_string.include? version
         system 'bash', '-c', %{
+# We need Homebrew in the PATH since `rbenv install` needs to access `ruby-build`.
+eval "$(#{full_homebrew_path} shellenv)"
 eval "$(#{homebrew_prefix}/bin/rbenv init -)"
 
 # Remove CFLAGS when openssl is fixed. See https://github.com/openssl/openssl/issues/18733#issuecomment-1181810055
