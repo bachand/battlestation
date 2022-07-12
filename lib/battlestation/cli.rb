@@ -168,7 +168,7 @@ done
 
     def verify_rbenv
       system 'bash', '-c', %{
-curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
+curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-doctor | bash
       }
     end
 
