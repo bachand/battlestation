@@ -185,32 +185,32 @@ fi
 
     # Installs Ruby if necessary.
     def install_ruby(version)
-      rbenv_versions_string = `rbenv versions`
+      rbenv_versions_string = `#{homebrew_prefix}/bin/rbenv versions`
 
       unless rbenv_versions_string.include? version
         system 'bash', '-c', %{
-rbenv init
-eval "$(rbenv init -)"
+#{homebrew_prefix}/bin/rbenv init
+eval "$(#{homebrew_prefix}/bin/rbenv init -)"
 
-rbenv install #{version}
+#{homebrew_prefix}/bin/rbenv install #{version}
         }
       end
     end
 
     def set_ruby_version(version)
       system 'bash', '-c', %{
-rbenv init
-eval "$(rbenv init -)"
+#{homebrew_prefix}/bin/rbenv init
+eval "$(#{homebrew_prefix}/bin/rbenv init -)"
 
-rbenv global #{version}
-rbenv shell #{version}
+#{homebrew_prefix}/bin/rbenv global #{version}
+#{homebrew_prefix}/bin/rbenv shell #{version}
       }
     end
 
     def install_gems(current_dirname)
       system 'bash', '-c', %{
-rbenv init
-eval "$(rbenv init -)"
+#{homebrew_prefix}/bin/rbenv init
+eval "$(#{homebrew_prefix}/bin/rbenv init -)"
 
 gem install bundler
 cd "#{current_dirname}/../../"
