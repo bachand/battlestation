@@ -28,6 +28,8 @@ module Battlestation
 
       install_aws_cli()
 
+      update_homebrew()
+
       install_packages(current_dirname)
 
       configure_fzf()
@@ -90,6 +92,12 @@ defaults write com.apple.dt.Xcode DVTTextPageGuideLocation -int 100
     def run_legacy_setup_script(current_dirname)
       setup_path = File.join current_dirname, '../../bin/setup'
       system 'bash', '-c', setup_path
+    end
+
+    def update_homebrew
+      system 'bash', '-c', %{
+#{full_homebrew_path} update
+      }
     end
 
     def install_python
