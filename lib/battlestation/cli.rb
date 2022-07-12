@@ -209,6 +209,7 @@ eval "$(#{homebrew_prefix}/bin/rbenv init -)"
       system 'bash', '-c', %{
 eval "$(#{homebrew_prefix}/bin/rbenv init -)"
 
+# We install the same version with which we created the Gemfile.lock.
 gem install bundler -v 2.1.4
 cd "#{current_dirname}/../../"
 bundle install
