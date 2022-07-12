@@ -191,7 +191,8 @@ fi
         system 'bash', '-c', %{
 eval "$(#{homebrew_prefix}/bin/rbenv init -)"
 
-#{homebrew_prefix}/bin/rbenv install #{version}
+# Remove CFLAGS when openssl is fixed. See https://github.com/openssl/openssl/issues/18733#issuecomment-1181810055
+CFLAGS="-Wno-error=implicit-function-declaration" #{homebrew_prefix}/bin/rbenv install #{version}
         }
       end
     end
@@ -201,7 +202,6 @@ eval "$(#{homebrew_prefix}/bin/rbenv init -)"
 eval "$(#{homebrew_prefix}/bin/rbenv init -)"
 
 #{homebrew_prefix}/bin/rbenv global #{version}
-#{homebrew_prefix}/bin/rbenv shell #{version}
       }
     end
 
