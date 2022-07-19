@@ -123,6 +123,7 @@ fi
         'ag',
         'cloc',
         'exiftool',
+        'ffmpeg',
         'fzf',
         'git',
         'gpg',
