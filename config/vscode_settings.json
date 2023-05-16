@@ -27,4 +27,13 @@
     "markdown": false,
     "scminput": false
   },
+  // Disable quick suggestions for plaintext files.
+  "[plaintext]": {
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    }
+  },
+  "editor.inlineSuggest.enabled": true
 }
