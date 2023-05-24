@@ -23,13 +23,6 @@ readonly BATTLESTATION_ROOT="$PARENT_DIR/../.."
 
 source "$PARENT_DIR/../../lib/functions.zsh"
 
-# Homebrew
-if is_silicon_mac
-then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-else
-  eval "$(/usr/local/bin/brew shellenv)"
-fi
 # Python
 path+="$HOME/Library/Python/3.6/bin"
 # https://github.com/bachand/battlestation
