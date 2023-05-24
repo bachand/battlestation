@@ -1,5 +1,14 @@
 #! /usr/bin/env zsh
 
+## Homebrew
+
+if is_silicon_mac
+then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 ## History
 
 # For more information on history, see https://wiki.gentoo.org/wiki/Zsh/Guide#History and
