@@ -88,8 +88,7 @@ defaults write com.apple.dt.Xcode DVTTextPageGuideLocation -int 100
     end
 
     def run_legacy_setup_script(current_dirname)
-      setup_path = File.join current_dirname, '../../bin/setup'
-      system 'bash', '-c', setup_path
+      Dir.chdir(current_dirname) { system 'bash', '-c', '../../bin/setup' }
     end
 
     def update_homebrew
