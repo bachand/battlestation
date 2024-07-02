@@ -88,6 +88,8 @@ defaults write com.apple.dt.Xcode DVTTextPageGuideLocation -int 100
     end
 
     def run_legacy_setup_script(current_dirname)
+      # The legacy setup script must be executed from a working directory within the repo to support
+      # using Git to determine the root directory of the repository.
       Dir.chdir(current_dirname) { system 'bash', '-c', '../../bin/setup' }
     end
 
