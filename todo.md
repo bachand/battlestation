@@ -1,5 +1,5 @@
 - Make VS Code the default way to open .txt, .md, etc. files
-- Add a git command to delete all local branches not matching a regex. This would be useful for deleting all local branches that don't contain my prefix, `mb-`.
+- Add a git command to delete all local branches not matching a regex. This would be useful for deleting all local branches that don't contain a prefix like `mb-`.
 - Figure out a way to not have to run `bundle install` as an admin. Should the first thing that `battlestation` does be install `rbenv`/`rvm`? Or should we specify a path for bundler to install to?
 - Add home folder to Finder sidebar
 - Add https://youtu.be/St2jUxnCVKI?t=29s
