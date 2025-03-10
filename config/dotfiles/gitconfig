@@ -20,7 +20,6 @@
 	excludesfile = ~/.gitignore_global
 	precomposeunicode = true
 	ignorecase = false
-	untrackedCache = true
 	fsmonitor = true
 [push]
 	default = current
