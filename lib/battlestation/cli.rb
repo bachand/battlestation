@@ -134,7 +134,6 @@ fi
         'python',
         'rbenv',
         'terminal-notifier',
-        'watchman', # Can be used to speed up Git via core.fsmonitor.
         'youtube-dl',
       ]
       # Slowly bringing code into ruby from the monolithic setup script.
