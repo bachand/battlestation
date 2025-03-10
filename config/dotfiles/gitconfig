@@ -21,6 +21,7 @@
 	precomposeunicode = true
 	ignorecase = false
 	untrackedCache = true
+	fsmonitor = true
 [push]
 	default = current
 [user]
@@ -47,3 +48,7 @@
 	ff = only
 [url "ssh://git@git.musta.ch/"]
 	insteadOf = https://git.musta.ch/
+[feature]
+	manyFiles = true
+[checkout]
+	workers = 4
