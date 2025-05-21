@@ -22,12 +22,8 @@
   "workbench.colorTheme": "Visual Studio Dark",
   "window.zoomLevel": 1,
   "github.copilot.enable": {
-    "*": true,
-    "plaintext": false,
-    "markdown": false,
-    "scminput": false
+    "*": false
   },
-  "github.copilot.editor.enableAutoCompletions": false,
   // Disable quick suggestions for plaintext files.
   "[plaintext]": {
     "editor.quickSuggestions": {
