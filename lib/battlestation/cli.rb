@@ -135,6 +135,7 @@ fi
         'rbenv',
         'terminal-notifier',
         'youtube-dl',
+        'gh',
       ]
       # Slowly bringing code into ruby from the monolithic setup script.
       system 'bash', '-c', %{
