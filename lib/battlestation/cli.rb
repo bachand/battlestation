@@ -4,6 +4,7 @@ require 'pathname'
 require 'tmpdir'
 
 require_relative '../output'
+require 'colorize'
 
 module Battlestation
 
@@ -30,7 +31,7 @@ module Battlestation
 
       update_homebrew()
 
-      install_packages(current_dirname)
+      install_packages()
 
       configure_fzf()
 
@@ -119,9 +120,8 @@ fi
 }
     end
 
-    def install_packages(current_dirname)
+    def install_packages()
       packages = [
-        'ag',
         'cloc',
         'exiftool',
         'ffmpeg',
@@ -133,45 +133,24 @@ fi
         'ios-sim',
         'python',
         'rbenv',
-        'terminal-notifier',
-        'youtube-dl',
         'gh',
       ]
-      # Slowly bringing code into ruby from the monolithic setup script.
-      system 'bash', '-c', %{
-#######################################
-# Prints the provided message to STDOUT in green.
-#
-# Arguments:
-#   Info message
-#######################################
-echo_info() {
-  printf "$(tput setaf 2)%s$(tput sgr 0)\n" "$*" >&2;
-}
 
-#######################################
-# Installs the specified Homebrew package if it isn't installed. If it is, tries to upgrade the
-# package.
-#
-# Arguments:
-#   Name of package
-#######################################
-install_or_upgrade_package() {
-  if ! #{full_homebrew_path} list "$1" >/dev/null 2>&1; then
-    echo_info "Installing $1 via Homebrew"
-    #{full_homebrew_path} install "$1"
-  else
-    # TODO: find a way to only update if needed to prevent errors in console.
-    #{full_homebrew_path} upgrade "$1"
-  fi
-}
-
-packages=( #{packages.join(" ")} )
-for package in "${packages[@]}"
-do
-  install_or_upgrade_package "$package"
-done
-      }
+      for package in packages
+        if system(full_homebrew_path, 'list', package, out: File::NULL, err: File::NULL)
+          # Package is installed. Only update it if it's outdated.
+          outdated = system(full_homebrew_path, 'outdated', package, out: File::NULL, err: File::NULL)
+          if !outdated
+            puts "Upgrading #{package} via Homebrew".colorize(:green)
+            system(full_homebrew_path, 'upgrade', package)
+          else
+            puts "#{package} is up to date.".colorize(:light_black)
+          end
+        else
+          puts "Installing #{package} via Homebrew".colorize(:green)
+          system(full_homebrew_path, 'install', package)
+        end
+      end
     end
 
     # Runs the fzf install script in order to install key bindings and shell completion.
