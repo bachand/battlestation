@@ -26,24 +26,29 @@ setopt HIST_IGNORE_SPACE
 
 export GREP_OPTIONS='--color=auto'
 
-## Prompt
+## Terminal
 
-# For more information on configuring the prompt, see https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/ and https://arjanvandergaag.nl/blog/customize-zsh-prompt-with-vcs-info.html.
+# Resources:
+# - https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/
+# - https://arjanvandergaag.nl/blog/customize-zsh-prompt-with-vcs-info.html
 
-### Leading prompt
+### Prompt
 
-PROMPT='boss:%~ '
+PROMPT='$ '
 
-### Trailing prompt
+### Title with git branch
 
 autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
-RPROMPT=\$vcs_info_msg_0_
-zstyle ':vcs_info:git:*' formats '%F{red}%c%u%f %a%F{green}%b%f'
-zstyle ':vcs_info:*' check-for-changes true
+# Git status is not included since it's not feasible in large repos.
+zstyle ':vcs_info:git:*' formats '%a%b'
 zstyle ':vcs_info:*' enable git
+
+update_terminal_title() {
+  vcs_info
+  print -Pn "\e]1;$vcs_info_msg_0_\a"
+}
+precmd_functions+=(update_terminal_title)
 
 ## fzf
 
