@@ -31,7 +31,7 @@ module Battlestation
 
       update_homebrew()
 
-      install_packages(current_dirname)
+      install_packages()
 
       configure_fzf()
 
@@ -120,7 +120,7 @@ fi
 }
     end
 
-    def install_packages(_current_dirname)
+    def install_packages()
       packages = [
         'cloc',
         'exiftool',
