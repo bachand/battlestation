@@ -8,3 +8,4 @@ gem 'rake'
 gem 'rubocop', '~> 0.49.1', require: false
 gem 'rspec'
 gem 'aws-sdk-s3', '~> 1'
+gem 'colorize'
