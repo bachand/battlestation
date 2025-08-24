@@ -57,7 +57,7 @@ module Battlestation
     def install_terminal_theme(current_dirname)
       plist_buddy='/usr/libexec/PlistBuddy'
       terminal_preferences='$HOME/Library/Preferences/com.apple.Terminal.plist'
-      theme='Balthazar 2000'
+      theme='Balthazar 2001'
       theme_file = File.join(current_dirname, '../../config/terminal_theme.terminal')
 
       system 'bash', '-c', %{
