@@ -33,8 +33,8 @@ install_homebrew() {
 }
 
 #######################################
-# Creates a symlink if it doesn't already exist. If a file already exists at the target path, prints
-# an error and does nothing.
+# Creates a symlink if it doesn't already exist. Handles permissions, existing files,
+# and provides detailed error messages for troubleshooting.
 #
 # Arguments:
 #   Target Path
@@ -43,20 +43,62 @@ install_homebrew() {
 create_link() {
   local target_path="$1"
   local source_path="$2"
+  local target_dir
+  
+  # Check if source exists
+  if [[ ! -f "$source_path" ]]; then
+    echo_error "Source file does not exist: $source_path"
+    return 1
+  fi
 
-  if [[ ! -f "$target_path" ]] && [[ -f "$source_path" ]]; then
-    # If the target doesn't exist and the source does, make the link!
-    ln -s "$source_path" "$target_path"
-  elif [[ -f "$target_path" ]]; then
-    if link_source_path=$(readlink "$target_path"); then
-      if [[ "$link_source_path" != "$source_path" ]]; then
-        echo_error "$target_path exists but is not a link to $source_path"
+  # Get target directory and check if it exists
+  target_dir=$(dirname "$target_path")
+  if [[ ! -d "$target_dir" ]]; then
+    echo_error "Target directory does not exist: $target_dir"
+    return 1
+  fi
+
+  # Check write permissions on target directory
+  if [[ ! -w "$target_dir" ]]; then
+    echo_error "No write permission for target directory: $target_dir"
+    echo_error "Try running with sudo or ensuring you have write access"
+    return 1
+  fi
+
+  # Check if target already exists
+  if [[ -e "$target_path" || -L "$target_path" ]]; then
+    if [[ -L "$target_path" ]]; then
+      # It's a symlink, check where it points
+      if link_source_path=$(readlink "$target_path"); then
+        if [[ "$link_source_path" == "$source_path" ]]; then
+          echo_verbose "Symlink already exists and points to correct source: $target_path -> $source_path"
+          return 0
+        else
+          echo_error "Symlink exists but points to different source:"
+          echo_error "  Current: $target_path -> $link_source_path"
+          echo_error "  Expected: $target_path -> $source_path"
+          echo_error "Remove the existing symlink first if you want to replace it"
+          return 1
+        fi
+      else
+        echo_error "Failed to read symlink target: $target_path"
+        return 1
       fi
     else
-      echo_error "$target_path is not a link"
+      # It's a regular file or directory
+      echo_error "Target path exists but is not a symlink: $target_path"
+      echo_error "Remove or move the existing file first"
+      return 1
     fi
-  elif [[ ! -f "$source_path" ]]; then
-    echo_error "$source_path does not exist"
+  fi
+
+  # Create the symlink
+  if ln -s "$source_path" "$target_path" 2>/dev/null; then
+    echo_verbose "Created symlink: $target_path -> $source_path"
+  else
+    echo_error "Failed to create symlink: $target_path -> $source_path"
+    echo_error "Check permissions and ensure the target directory is writable"
+    return 1
   fi
 }
 
@@ -81,10 +123,8 @@ create_link "$HOME/.gitconfig" "$CONFIG_DIR/dotfiles/gitconfig"
 create_link "$HOME/.npmrc" "$CONFIG_DIR/dotfiles/npmrc"
 create_link "$HOME/Library/Application Support/Code/User/settings.json" "$CONFIG_DIR/vscode_settings.json"
 
-# TODO: Not working, probably due to spaces. Let's wait until `sync_symlinks` is working.
-# create_link "$HOME/Library/Developer/Xcode/Templates/File Templates/User Templates/Empty Swift File.xctemplate" "$REPO_DIR/xcode/Empty Swift File.xctemplate"
+# TODO: Xcode template - only works on macOS with Xcode installed
+# create_link "$HOME/Library/Developer/Xcode/Templates/File Templates/User Templates/Empty Swift File.xctemplate" "$CONFIG_DIR/xcode/Empty Swift File.xctemplate"
 
 chmod 755 "$REPO_DIR/bin/git-cleanup"
 create_link '/usr/local/bin/git-cleanup' "$REPO_DIR/bin/git-cleanup"
-
-exit 1
