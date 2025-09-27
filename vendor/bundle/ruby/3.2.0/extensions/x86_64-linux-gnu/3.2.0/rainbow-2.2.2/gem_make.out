@@ -1,0 +1,5 @@
+current directory: /home/runner/work/battlestation/battlestation/vendor/bundle/ruby/3.2.0/gems/rainbow-2.2.2/ext
+/usr/bin/ruby3.2 mkrf_conf.rb
+
+current directory: /home/runner/work/battlestation/battlestation/vendor/bundle/ruby/3.2.0/gems/rainbow-2.2.2/ext
+/usr/bin/ruby3.2 -I/usr/lib/ruby/vendor_ruby -rrubygems /home/runner/work/battlestation/battlestation/vendor/bundle/ruby/3.2.0/gems/rake-13.0.6/exe/rake RUBYARCHDIR\=/home/runner/work/battlestation/battlestation/vendor/bundle/ruby/3.2.0/extensions/x86_64-linux-gnu/3.2.0/rainbow-2.2.2 RUBYLIBDIR\=/home/runner/work/battlestation/battlestation/vendor/bundle/ruby/3.2.0/extensions/x86_64-linux-gnu/3.2.0/rainbow-2.2.2
