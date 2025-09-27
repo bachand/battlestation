@@ -87,7 +87,6 @@ create_link() {
     else
       # It's a regular file or directory
       echo_error "Target path exists but is not a symlink: $target_path"
-      echo_error "Remove or move the existing file first"
       return 1
     fi
   fi
