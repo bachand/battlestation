@@ -96,7 +96,6 @@ create_link() {
     echo_verbose "Created symlink: $target_path -> $source_path"
   else
     echo_error "Failed to create symlink: $target_path -> $source_path"
-    echo_error "Check permissions and ensure the target directory is writable"
     return 1
   fi
 }
