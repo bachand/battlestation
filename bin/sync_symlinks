@@ -1,48 +1,111 @@
 #!/usr/bin/env ruby
 
-# TODO: This is a WIP that will replace `create_link()` in setup.sh
+# Utility script to manage symlinks defined in config/symlinks.yaml
+# This replaces the old bash create_link() functionality with a robust Ruby implementation
 
 require 'optparse'
-require 'yaml'
 require 'pathname'
 
-require_relative '../lib/output'
+# Add lib directory to load path
+script_dir = Pathname.new(__FILE__).dirname
+lib_dir = script_dir.parent.join('lib')
+$LOAD_PATH.unshift(lib_dir) unless $LOAD_PATH.include?(lib_dir)
 
+require 'battlestation/symlink_manager'
+require 'output'
+
+# Parse command line options
+options = { verbose: true, action: :create }
 optparse = OptionParser.new do |opts|
-  opts.banner = "Usage: #{File.basename(__FILE__)} yaml_path"
+  opts.banner = "Usage: #{File.basename(__FILE__)} [options] [yaml_path]"
+  opts.separator ""
+  opts.separator "Manages symlinks defined in a YAML configuration file."
+  opts.separator "If no yaml_path is provided, uses config/symlinks.yaml relative to this script."
+  opts.separator ""
+  opts.separator "Options:"
 
-  opts.on( '-h', '--help', 'Display usage' ) do
-    Output.put_info(opts)
-    exit 1
+  opts.on('-c', '--create', 'Create symlinks (default)') do
+    options[:action] = :create
+  end
+
+  opts.on('-s', '--status', 'Show status of symlinks') do
+    options[:action] = :status
+  end
+
+  opts.on('-r', '--remove', 'Remove symlinks') do
+    options[:action] = :remove
+  end
+
+  opts.on('-q', '--quiet', 'Suppress verbose output') do
+    options[:verbose] = false
+  end
+
+  opts.on('-h', '--help', 'Display this help') do
+    puts opts
+    exit 0
   end
 end
 
-optparse.parse!
-
-unless ARGV.count == 1
-  Output.put_error('Specify a single file.')
+begin
+  optparse.parse!
+rescue OptionParser::InvalidOption => e
+  Output.put_error(e.message)
+  puts optparse
   exit 1
 end
 
-yaml_path = ARGV[0]
-
-unless File.exists? yaml_path
-  Output.put_error("#{yaml_path} does not exist.")
+# Determine YAML configuration file
+if ARGV.length > 1
+  Output.put_error('Too many arguments. Specify at most one YAML file path.')
+  puts optparse
   exit 1
 end
 
-yaml = YAML.load_file(yaml_path)
+yaml_path = if ARGV.length == 1
+  ARGV[0]
+else
+  script_dir.parent.join('config/symlinks.yaml').to_s
+end
 
-unless yaml.is_a? Array
-  Output.put_error("File must be a YAML array.")
+# Set up repository root
+repo_root = script_dir.parent
+
+begin
+  # Create symlink manager
+  manager = Battlestation::SymlinkManager.new(verbose: options[:verbose])
+  
+  # Load configuration
+  manager.load_from_yaml(yaml_path, repo_root: repo_root)
+  
+  # Execute requested action
+  case options[:action]
+  when :create
+    manager.ensure_executable_permissions
+    success = manager.create_all
+    exit success ? 0 : 1
+  when :status
+    manager.show_status
+    exit 0
+  when :remove
+    success = manager.remove_all
+    if options[:verbose]
+      if success
+        Output.put_success("All symlinks removed successfully")
+      else
+        Output.put_error("Some symlinks failed to remove - check the output above")
+      end
+    end
+    exit success ? 0 : 1
+  end
+
+rescue Battlestation::SymlinkError => e
+  Output.put_error("Symlink operation failed: #{e.message}")
+  exit 1
+rescue StandardError => e
+  Output.put_error("Unexpected error: #{e.message}")
+  if options[:verbose]
+    Output.put_error("Stack trace:")
+    Output.put_error(e.backtrace.join("\n"))
+  end
   exit 1
 end
-
-Symlink = Struct.new(:target_path, :source_path)
-symlinks = yaml.map do |element|
-  target_path = element['target_path']
-  source_path = element['source_path']
-  Symlink.new(target_path, source_path)
-end
-
-puts symlinks.inspect

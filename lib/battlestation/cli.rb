@@ -93,39 +93,30 @@ defaults write com.apple.dt.Xcode DVTTextPageGuideLocation -int 100
 
     def setup_symlinks(current_dirname)
       repo_dir = File.expand_path('../../', current_dirname)
-      config_dir = File.join(repo_dir, 'config')
+      symlinks_config = File.join(repo_dir, 'config/symlinks.yaml')
       
-      Output.put_info("Setting up symlinks...")
+      Output.put_info("Setting up symlinks from configuration...")
       
       manager = SymlinkManager.new(verbose: true)
       
-      # Add dotfile symlinks
-      manager.add_symlink(File.join(config_dir, 'dotfiles/zshenv'), File.join(ENV['HOME'], '.zshenv'))
-      manager.add_symlink(File.join(config_dir, 'dotfiles/zshrc'), File.join(ENV['HOME'], '.zshrc'))
-      manager.add_symlink(File.join(config_dir, 'dotfiles/gitconfig'), File.join(ENV['HOME'], '.gitconfig'))
-      manager.add_symlink(File.join(config_dir, 'dotfiles/npmrc'), File.join(ENV['HOME'], '.npmrc'))
-      
-      # Add VSCode settings symlink
-      vscode_settings_path = File.join(ENV['HOME'], 'Library/Application Support/Code/User/settings.json')
-      manager.add_symlink(File.join(config_dir, 'vscode_settings.json'), vscode_settings_path)
-      
-      # Add git-cleanup script symlink (with executable permissions)
-      git_cleanup_source = File.join(repo_dir, 'bin/git-cleanup')
-      git_cleanup_target = '/usr/local/bin/git-cleanup'
-      
-      # Ensure git-cleanup is executable
-      File.chmod(0755, git_cleanup_source) if File.exist?(git_cleanup_source)
-      
-      manager.add_symlink(git_cleanup_source, git_cleanup_target)
-      
-      # Create all symlinks
-      success = manager.create_all
-      
-      if success
-        Output.put_success("All symlinks created successfully")
-      else
-        Output.put_error("Some symlinks failed to create - check the output above for details")
-        Output.put_info("You may need to run with sudo for system directory symlinks like /usr/local/bin/")
+      begin
+        # Load symlinks from YAML configuration
+        manager.load_from_yaml(symlinks_config, repo_root: repo_dir)
+        
+        # Ensure executable permissions on scripts
+        manager.ensure_executable_permissions
+        
+        # Create all symlinks
+        success = manager.create_all
+        
+        if success
+          Output.put_success("All symlinks created successfully")
+        else
+          Output.put_error("Some symlinks failed to create - check the output above for details")
+          Output.put_info("You may need to run with sudo for system directory symlinks like /usr/local/bin/")
+        end
+      rescue SymlinkError => e
+        Output.put_error("Failed to setup symlinks: #{e.message}")
       end
     end
 
