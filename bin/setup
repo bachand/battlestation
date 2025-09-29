@@ -43,5 +43,4 @@ install_dropbox() {
 #   https://www.makeuseof.com/tag/automatically-clean-up-your-mac-os-x-downloads-or-any-folder/ (can this be converted to code?)
 
 install_homebrew
-
 install_dropbox

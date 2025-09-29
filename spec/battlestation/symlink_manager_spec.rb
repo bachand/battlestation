@@ -3,11 +3,9 @@
 require 'battlestation'
 require 'tmpdir'
 require 'fileutils'
-require 'yaml'
 
-RSpec.describe Battlestation::SymlinkManager do
+RSpec.describe Battlestation::SymlinkSync do
   let(:temp_dir) { Dir.mktmpdir }
-  let(:config_file) { File.join(temp_dir, 'symlinks.yaml') }
   let(:repo_root) { File.join(temp_dir, 'repo') }
   let(:home_dir) { File.join(temp_dir, 'home') }
 
@@ -17,98 +15,81 @@ RSpec.describe Battlestation::SymlinkManager do
     # Create test source files
     FileUtils.mkdir_p(File.join(repo_root, 'config/dotfiles'))
     File.write(File.join(repo_root, 'config/dotfiles/gitconfig'), '[user]\n  name = Test')
+    File.write(File.join(repo_root, 'config/dotfiles/zshrc'), 'export PATH=/usr/local/bin:$PATH')
     FileUtils.mkdir_p(File.join(repo_root, 'bin'))
-    File.write(File.join(repo_root, 'bin/test-script'), '#!/bin/bash\necho test')
-    
-    # Create test config file
-    config = [
-      { 'target_path' => '.gitconfig', 'source_path' => 'config/dotfiles/gitconfig' },
-      { 'target_path' => 'test-script', 'source_path' => 'bin/test-script' }
-    ]
-    File.write(config_file, config.to_yaml)
+    File.write(File.join(repo_root, 'bin/git-cleanup'), '#!/bin/bash\necho cleanup')
   end
 
   after do
     FileUtils.rm_rf(temp_dir)
   end
 
-  describe '#create_all' do
-    it 'creates symlinks from YAML configuration' do
-      manager = described_class.new(config_file, repo_root: repo_root, home_dir: home_dir, verbose: false)
+  describe '#sync' do
+    it 'creates symlinks and returns results' do
+      sync = described_class.new(repo_root: repo_root, home_dir: home_dir)
+      results = sync.sync
       
-      expect(manager.create_all).to be true
-      expect(File.symlink?(File.join(home_dir, '.gitconfig'))).to be true
-      expect(File.symlink?(File.join(home_dir, 'test-script'))).to be true
-      expect(File.readlink(File.join(home_dir, '.gitconfig'))).to eq(File.join(repo_root, 'config/dotfiles/gitconfig'))
+      expect(results).to be_an(Array)
+      expect(results.length).to eq(7) # All defined symlinks
+      
+      # Check that some were created successfully
+      created_results = results.select { |r| r[:status] == :created }
+      expect(created_results.length).to be > 0
+      
+      # Check structure of results
+      results.each do |result|
+        expect(result).to have_key(:source)
+        expect(result).to have_key(:target)
+        expect(result).to have_key(:status)
+        expect(result).to have_key(:message)
+      end
     end
 
     it 'sets executable permissions on bin files' do
-      manager = described_class.new(config_file, repo_root: repo_root, home_dir: home_dir, verbose: false)
+      sync = described_class.new(repo_root: repo_root, home_dir: home_dir)
       
-      File.chmod(0644, File.join(repo_root, 'bin/test-script'))
-      expect(File.executable?(File.join(repo_root, 'bin/test-script'))).to be false
+      File.chmod(0644, File.join(repo_root, 'bin/git-cleanup'))
+      expect(File.executable?(File.join(repo_root, 'bin/git-cleanup'))).to be false
       
-      manager.create_all
-      expect(File.executable?(File.join(repo_root, 'bin/test-script'))).to be true
+      sync.sync
+      expect(File.executable?(File.join(repo_root, 'bin/git-cleanup'))).to be true
     end
 
-    it 'handles existing correct symlinks gracefully' do
+    it 'handles existing correct symlinks' do
       target = File.join(home_dir, '.gitconfig')
       source = File.join(repo_root, 'config/dotfiles/gitconfig')
       File.symlink(source, target)
       
-      manager = described_class.new(config_file, repo_root: repo_root, home_dir: home_dir, verbose: true)
-      expect(manager.create_all).to be true
-    end
-
-    it 'fails gracefully when source is missing' do
-      File.unlink(File.join(repo_root, 'config/dotfiles/gitconfig'))
+      sync = described_class.new(repo_root: repo_root, home_dir: home_dir)
+      results = sync.sync
       
-      manager = described_class.new(config_file, repo_root: repo_root, home_dir: home_dir, verbose: false)
-      expect(manager.create_all).to be false
+      gitconfig_result = results.find { |r| r[:target] == target }
+      expect(gitconfig_result[:status]).to eq(:already_correct)
     end
-  end
 
-  describe '#status' do
-    it 'shows status of symlinks' do
-      manager = described_class.new(config_file, repo_root: repo_root, home_dir: home_dir, verbose: false)
+    it 'handles missing source files' do
+      File.delete(File.join(repo_root, 'config/dotfiles/gitconfig'))
       
-      expect { manager.status }.to output(/Ready to create/).to_stdout
-    end
-  end
-
-  describe '#remove_all' do
-    it 'removes existing symlinks' do
-      manager = described_class.new(config_file, repo_root: repo_root, home_dir: home_dir, verbose: false)
-      manager.create_all
+      sync = described_class.new(repo_root: repo_root, home_dir: home_dir)
+      results = sync.sync
       
-      expect(File.symlink?(File.join(home_dir, '.gitconfig'))).to be true
-      manager.remove_all
-      expect(File.exist?(File.join(home_dir, '.gitconfig'))).to be false
-    end
-  end
-
-  describe 'error handling' do
-    it 'raises error for missing config file' do
-      expect {
-        described_class.new('/nonexistent/config.yaml', verbose: false)
-      }.to raise_error(/Configuration file not found/)
+      gitconfig_result = results.find { |r| r[:target].end_with?('.gitconfig') }
+      expect(gitconfig_result[:status]).to eq(:source_missing)
     end
 
-    it 'raises error for invalid YAML structure' do
-      File.write(config_file, { 'not' => 'an array' }.to_yaml)
+    it 'handles permission issues' do
+      # Make home directory read-only
+      File.chmod(0555, home_dir)
       
-      expect {
-        described_class.new(config_file, verbose: false)
-      }.to raise_error(/must be an array/)
-    end
-
-    it 'raises error for missing required fields' do
-      File.write(config_file, [{ 'target_path' => 'only_target' }].to_yaml)
+      sync = described_class.new(repo_root: repo_root, home_dir: home_dir)
+      results = sync.sync
       
-      expect {
-        described_class.new(config_file, verbose: false)
-      }.to raise_error(/must have.*source_path.*target_path/)
+      # Should have permission errors for targets in home dir
+      home_results = results.select { |r| r[:target].start_with?(home_dir) }
+      expect(home_results.any? { |r| r[:status] == :no_permission }).to be true
+      
+      # Restore permissions for cleanup
+      File.chmod(0755, home_dir)
     end
   end
 end

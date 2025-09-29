@@ -4,7 +4,7 @@ require 'pathname'
 require 'tmpdir'
 
 require_relative '../output'
-require_relative 'symlink_manager'
+require_relative 'symlink_sync'
 require 'colorize'
 
 module Battlestation
@@ -93,17 +93,40 @@ defaults write com.apple.dt.Xcode DVTTextPageGuideLocation -int 100
 
     def setup_symlinks(current_dirname)
       repo_dir = File.expand_path('../../', current_dirname)
-      symlinks_config = File.join(repo_dir, 'config/symlinks.yaml')
       
-      Output.put_info("Setting up symlinks from configuration...")
+      Output.put_info("Setting up symlinks...")
       
       begin
-        manager = SymlinkManager.new(symlinks_config, repo_root: repo_dir, verbose: true)
-        success = manager.create_all
+        sync = SymlinkSync.new(repo_root: repo_dir)
+        results = sync.sync
         
-        unless success
-          Output.put_error("Some symlinks failed to create - check the output above for details")
+        # Process and display results
+        success_count = 0
+        results.each do |result|
+          case result[:status]
+          when :created, :already_correct
+            Output.put_success("✓ #{result[:message]}")
+            success_count += 1
+          when :source_missing
+            Output.put_error("✗ #{result[:message]}")
+          when :no_permission
+            Output.put_error("✗ #{result[:message]}")
+          when :points_elsewhere, :file_exists
+            Output.put_error("✗ #{result[:message]}")
+          when :failed
+            Output.put_error("✗ #{result[:message]}")
+          else
+            Output.put_error("✗ #{result[:message]}")
+          end
+        end
+        
+        if success_count == results.length
+          Output.put_success("All #{success_count} symlinks created successfully")
+        elsif success_count > 0
+          Output.put_error("#{success_count}/#{results.length} symlinks created successfully")
           Output.put_info("You may need to run with sudo for system directory symlinks like /usr/local/bin/")
+        else
+          Output.put_error("No symlinks could be created - check the output above for details")
         end
       rescue => e
         Output.put_error("Failed to setup symlinks: #{e.message}")
