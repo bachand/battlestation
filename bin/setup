@@ -46,5 +46,3 @@ install_homebrew
 
 install_dropbox
 
-# Note: Symlink creation is now handled by the Ruby CLI
-echo_verbose "Symlink creation is now handled by the Ruby CLI in lib/battlestation/cli.rb"
