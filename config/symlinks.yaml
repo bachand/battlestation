@@ -17,8 +17,6 @@
 - target_path: Library/Application Support/Code/User/settings.json
   source_path: config/vscode_settings.json
 
-- target_path: Library/Developer/Xcode/Templates/File Templates/User Templates/Empty Swift File.xctemplate
-  source_path: xcode/Empty Swift File.xctemplate
 
 - target_path: /usr/local/bin/git-cleanup
   source_path: bin/git-cleanup
