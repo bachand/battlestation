@@ -97,25 +97,15 @@ defaults write com.apple.dt.Xcode DVTTextPageGuideLocation -int 100
       
       Output.put_info("Setting up symlinks from configuration...")
       
-      manager = SymlinkManager.new(verbose: true)
-      
       begin
-        # Load symlinks from YAML configuration
-        manager.load_from_yaml(symlinks_config, repo_root: repo_dir)
-        
-        # Ensure executable permissions on scripts
-        manager.ensure_executable_permissions
-        
-        # Create all symlinks
+        manager = SymlinkManager.new(symlinks_config, repo_root: repo_dir, verbose: true)
         success = manager.create_all
         
-        if success
-          Output.put_success("All symlinks created successfully")
-        else
+        unless success
           Output.put_error("Some symlinks failed to create - check the output above for details")
           Output.put_info("You may need to run with sudo for system directory symlinks like /usr/local/bin/")
         end
-      rescue SymlinkError => e
+      rescue => e
         Output.put_error("Failed to setup symlinks: #{e.message}")
       end
     end
