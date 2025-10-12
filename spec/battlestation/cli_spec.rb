@@ -19,6 +19,8 @@ describe Battlestation::CLI do
 
       allow(Output).to receive(:put_success)
       allow(Output).to receive(:put_info)
+
+      subject.run
     end
   end
 end
