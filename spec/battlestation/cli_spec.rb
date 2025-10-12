@@ -15,7 +15,7 @@ describe Battlestation::CLI do
       expect(subject).to receive(:configure_fzf)
       expect(subject).to receive(:install_ruby).with('2.7.6')
       expect(subject).to receive(:set_ruby_version).with('2.7.6')
-      expect(subject).to receive(:install_gems).with(kind_of(Pathname)) { system('true') }
+      expect(subject).to receive(:install_gems).with(kind_of(Pathname))
 
       allow(Output).to receive(:put_success)
       allow(Output).to receive(:put_info)
