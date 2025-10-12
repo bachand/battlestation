@@ -15,7 +15,6 @@ module Battlestation
     # inspect the target files.
     #
     # @param args [Array<String>] command line arguments
-    # @return [Integer] UNIX exit code
     def run(args = ARGV)
       current_dirname = Pathname.new(__FILE__).dirname
 
@@ -46,8 +45,6 @@ module Battlestation
 
       Output.put_success("Setup completed.")
       Output.put_info("Please close and reopen your shell.")
-
-      return $?.exitstatus
     end
 
     private
