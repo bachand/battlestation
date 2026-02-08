@@ -29,6 +29,8 @@ module Battlestation
 
       configure_xcode()
 
+      identity_write_action.write_if_needed
+
       run_legacy_setup_script(current_dirname)
 
       install_python()
@@ -50,8 +52,6 @@ module Battlestation
 
       install_gems(current_dirname)
 
-      identity_write_action.write_if_needed
-
       Output.put_success("Setup completed.")
       Output.put_info("Please close and reopen your shell.")
     end
@@ -59,7 +59,7 @@ module Battlestation
     private
 
     def parse_options(args)
-      options = { git_email: nil }
+      options = { }
 
       parser = OptionParser.new do |opts|
         opts.banner = 'Usage: ./bin/battlestation setup [--git-email email@example.com]'
