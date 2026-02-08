@@ -26,7 +26,7 @@
 [user]
 	name = Michael Bachand
 [include]
-	# Linked by setup to the local per-machine identity file.
+	# This per-machine identity file is written during setup.
 	path = ~/.gitconfig-identity
 [credential]
 	helper = osxkeychain
