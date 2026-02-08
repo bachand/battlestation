@@ -34,11 +34,9 @@ module Battlestation
     # @return [WriteAction]
     def validate_and_plan_write(git_email)
       git_email = sanitize_email(git_email)
-      raise ArgumentError, "Invalid email format: #{git_email}" unless git_email
-
       identity_file_exists = File.exist?(@path)
-      if !identity_file_exists && (git_email.nil? || git_email.empty?)
-        raise ArgumentError, "Email is required. Run: ./bin/battlestation setup --git-email you@example.com"
+      if !identity_file_exists && !git_email
+        raise 'Valid email is required. Run: ./bin/battlestation setup --git-email you@example.com'
       end
 
       WriteAction.new(@path, !identity_file_exists, git_email)
