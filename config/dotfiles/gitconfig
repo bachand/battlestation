@@ -25,6 +25,9 @@
 	default = current
 [user]
 	name = Michael Bachand
+[include]
+	# This per-machine identity file is written during setup.
+	path = ~/.gitconfig-identity
 [credential]
 	helper = osxkeychain
 [mergetool "Kaleidoscope"]
