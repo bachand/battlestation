@@ -84,6 +84,5 @@ create_link "$HOME/Library/Application Support/Code/User/settings.json" "$CONFIG
 
 
 chmod 755 "$REPO_DIR/bin/git-cleanup"
-create_link '/usr/local/bin/git-cleanup' "$REPO_DIR/bin/git-cleanup"
 
 exit 1

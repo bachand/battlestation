@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 require 'pathname'
+require 'optparse'
 require 'tmpdir'
 
 require_relative '../output'
 require 'colorize'
+require_relative 'git_identity'
 
 module Battlestation
 
@@ -17,6 +19,11 @@ module Battlestation
     # @param args [Array<String>] command line arguments
     def run(args = ARGV)
       current_dirname = Pathname.new(__FILE__).dirname
+
+      git_identity = GitIdentity.new
+
+      options = parse_options(args)
+      identity_write_action = git_identity.validate_and_plan_write(options[:git_email])
 
       install_terminal_theme(current_dirname)
 
@@ -43,11 +50,33 @@ module Battlestation
 
       install_gems(current_dirname)
 
+      identity_write_action.write_if_needed
+
       Output.put_success("Setup completed.")
       Output.put_info("Please close and reopen your shell.")
     end
 
     private
+
+    def parse_options(args)
+      options = { git_email: nil }
+
+      parser = OptionParser.new do |opts|
+        opts.banner = 'Usage: ./bin/battlestation setup [--git-email email@example.com]'
+        opts.on('--git-email EMAIL', 'Git email used to create ~/.gitconfig-identity') do |email|
+          options[:git_email] = email
+        end
+        opts.on('-h', '--help', 'Show this help message') do
+          puts opts
+          exit 0
+        end
+      end
+
+      parser.parse!(args.dup)
+
+      { git_email: options[:git_email] }
+    end
+
 
     # Installs my Terminal theme and sets it as the default.
     # @param current_dirname [String] The absolute path to the directory where this script will

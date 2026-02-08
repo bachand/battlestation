@@ -4,6 +4,16 @@
 $LOAD_PATH.unshift("#{__dir__}/../lib")
 
 require 'battlestation'
+require_relative '../lib/output'
 
-cli = Battlestation::CLI.new
-cli.run
+begin
+	cli = Battlestation::CLI.new
+	cli.run(ARGV)
+rescue StandardError => e
+	if ENV['BATTLESTATION_DEBUG'] == '1'
+		Output.put_debug(e.full_message)
+	else
+		Output.put_error(e.message)
+	end
+	exit 1
+end

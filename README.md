@@ -9,5 +9,5 @@ Clone the repo and run the setup command.
 ```shell
 $ git clone https://github.com/bachand/battlestation.git
 $ cd battlestation
-$ ./bin/battlestation setup
+$ ./bin/battlestation setup --git-email you@example.com
 ```
