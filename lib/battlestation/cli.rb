@@ -148,6 +148,7 @@ fi
 
     def install_packages()
       packages = [
+        'awscli',
         'cloc',
         'exiftool',
         'ffmpeg',
