@@ -154,6 +154,7 @@ fi
         'ffmpeg',
         'fzf',
         'git',
+        'go',
         'gpg',
         'handbrake',
         'imagemagick',
