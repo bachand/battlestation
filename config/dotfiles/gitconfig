@@ -48,8 +48,6 @@
 	enabled = false
 [pull]
 	ff = only
-[url "ssh://git@git.musta.ch/"]
-	insteadOf = https://git.musta.ch/
 [feature]
 	manyFiles = true
 [checkout]
